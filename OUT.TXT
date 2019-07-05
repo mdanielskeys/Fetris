@@ -1,0 +1,55 @@
+Open Watcom C/C++ x86 32-bit Compile and Link Utility
+Version 2.0 beta Nov  1 2017 21:25:08 (16-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wpp386 BREAKOUT.CPP 
+Open Watcom C++ x86 32-bit Optimizing Compiler
+Version 2.0 beta Nov  1 2017 21:10:30 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1989-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+BREAKOUT.CPP: 122 lines, included 79, no warnings, no errors
+	wpp386 GAMELOOP.CPP 
+Open Watcom C++ x86 32-bit Optimizing Compiler
+Version 2.0 beta Nov  1 2017 21:10:30 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1989-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+GAMELOOP.CPP: 242 lines, included 1838, no warnings, no errors
+	wpp386 BOGRAPH.CPP 
+Open Watcom C++ x86 32-bit Optimizing Compiler
+Version 2.0 beta Nov  1 2017 21:10:30 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1989-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+BOGRAPH.CPP: 269 lines, included 3607, no warnings, no errors
+	wpp386 DRAWOBJ.CPP 
+Open Watcom C++ x86 32-bit Optimizing Compiler
+Version 2.0 beta Nov  1 2017 21:10:30 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1989-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+DRAWOBJ.CPP: 101 lines, included 65, no warnings, no errors
+	wpp386 BORDER.CPP 
+Open Watcom C++ x86 32-bit Optimizing Compiler
+Version 2.0 beta Nov  1 2017 21:10:30 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1989-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+BORDER.CPP: 122 lines, included 74, no warnings, no errors
+	wlink @__wcl__.lnk
+Open Watcom Linker Version 2.0 beta Nov  1 2017 20:56:22 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+loading object files
+searching libraries
+creating a DOS/4G executable
