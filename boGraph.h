@@ -41,11 +41,13 @@ public:
 	void SetTextMode();
 	void FlipVideoBuffer();
 	void ClearScreen();
-	void Gputch(int x, int y, int c, int fc, int bc);
-	void Gputs(int x, int y, char * string, int fc, int bc);
+	void Gputch(int x, int y, int c, int fc, int bc) const;
+	void Gputs(int x, int y, char * string, int fc, int bc) const;
 	void DrawLine(int x1, int y1, int x2, int y2, byte color);
 	void Polygon (int num_vertices, int *vertices, byte color);
-
+	void DrawSolidRect(int x1, int y1, int x2, int y2, byte color) const;
+	void DrawRect(int x1, int y1, int x2, int y2, byte color) const;
+	
 	void DrawPixel(word x, word y, byte color) const;
 };
 

@@ -61,10 +61,14 @@ void BoGraphics::ClearScreen()
 
 void BoGraphics::DrawPixel(word x, word y, byte color) const 
 {
-	double_buffer[(y<<8) + (y<<6) + x] = color;
+	// check to make sure that we are within bounds
+	if (x > 0 && x < 320 && y > 0 && y < 200)
+	{
+		double_buffer[(y<<8) + (y<<6) + x] = color;
+	}
 }
 
-void BoGraphics::Gputch(int x, int y, int c, int fc, int bc)
+void BoGraphics::Gputch(int x, int y, int c, int fc, int bc) const 
 {
 	byte *workChar;			// points to the character rendered
 	byte bit; 		// bit mask
@@ -82,11 +86,11 @@ void BoGraphics::Gputch(int x, int y, int c, int fc, int bc)
 				{
 					if (*workChar & bit)
 					{
-						DrawPixel(x + xOff>>1, y + yOff>>1, fc);
+						DrawPixel(x + xOff, y + yOff, fc);
 					}
 					else if (bc >= 0)
 					{
-						DrawPixel(x + xOff>>1, y + yOff>>1, bc);
+						DrawPixel(x + xOff, y + yOff, bc);
 					}
 					bit >>= 1;
 				}
@@ -96,7 +100,7 @@ void BoGraphics::Gputch(int x, int y, int c, int fc, int bc)
 	}
 }
 
-void BoGraphics::Gputs(int x, int y, char * string, int fc, int bc)
+void BoGraphics::Gputs(int x, int y, char * string, int fc, int bc) const 
 {
 	for (int i = 0; string[i]; i++)
 	{
@@ -170,4 +174,32 @@ void BoGraphics::Polygon (int num_vertices, int *vertices, byte color)
 			vertices[(num_vertices<<1)-1],
 			color);
 
+}
+
+void BoGraphics::DrawSolidRect(int x1, int y1, int x2, int y2, byte color) const
+{
+	for (int py = y1; py < y2; py++)
+	{
+		for (int px = x1; px < x2; px++)
+		{
+			DrawPixel(px, py, color);
+		}
+	}
+}
+
+void BoGraphics::DrawRect(int x1, int y1, int x2, int y2, byte color) const
+{
+	// draw top and bottom lines
+	for (int px = x1; px < x2; px++)
+	{
+		DrawPixel(px, y1, color);
+		DrawPixel(px, y2, color);
+	}
+
+	// draw vertical lines
+	for (int py = y1; py < y2; py++)
+	{
+		DrawPixel(x1, py, color);
+		DrawPixel(x2, py, color);
+	}
 }

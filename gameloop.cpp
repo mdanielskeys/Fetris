@@ -2,12 +2,11 @@
 
 #include "gameloop.h"
 #include "Border.h"
+#include "PlaySurf.h"
 #include <conio.h>
 #include <stdlib.h>
 #include <time.h>
-
-unsigned short startTime;
-unsigned short tick;
+#include <stdio.h>
 
 /*
 
@@ -100,8 +99,9 @@ bool GameLoop::init()
 		return false;
 	}
 
-	startTime = *my_clock;
-	tick = startTime;
+	playSurf = new PlaySurf(graphics);
+
+	tetra = *my_clock;
 
 	return true;
 }
@@ -123,12 +123,22 @@ int GameLoop::processInput()
 		{
 			return -1;
 		}
-	}
-
-	float dt = (*my_clock - tick)/18.2;
-	if (dt > 2.0)
-	{
-		tick = *my_clock;
+		if (key == 'd')
+		{
+			playSurf->MoveRight();
+		}
+		if (key == 'a')
+		{
+			playSurf->MoveLeft();
+		}
+		if (key == 'e')
+		{
+			playSurf->RotateCC();		
+		}
+		if (key == 'w')
+		{
+			playSurf->RotateCW();
+		}
 	}
 
 	return 0;
@@ -136,11 +146,23 @@ int GameLoop::processInput()
 
 void GameLoop::update()
 {
-	graphics.ClearScreen();	
-	border->Draw();
+	if (((*my_clock - tetra)/18.2) > .4)
+	{
+		playSurf->AdvanceRow();
+		tetra = *my_clock;
+	}
 }
 
 void GameLoop::render()
 {
+	graphics.ClearScreen();	
+	border->Draw();
+
+	if (playSurf != NULL)
+	{
+		playSurf->DrawFrame();
+		playSurf->DrawTetro();
+	}
+
 	graphics.FlipVideoBuffer();
 }

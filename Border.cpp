@@ -7,20 +7,19 @@ Border::Border(BoGraphics& graphics) : DrawObject(graphics)
 
 void DrawObject::Draw()
 {
-	int tx = 20;
-	int ty = 20;
-	int bx = 300;
-	int by = 190;
+	int tx = 10;
+	int ty = 10;
 	byte color = 8;
 
-	for (word x = 0; x < SCREEN_WIDTH; x++)
-	{
-		for (word y = 10; y < SCREEN_HEIGHT; y++)
-		{
-			if (x < tx || x > bx || y < ty || y > by)
-			{
-				myGraphics.DrawPixel(x, y, color);
-			}
-		}
-	}
+	// draw top box
+	myGraphics.DrawSolidRect(0, 0, SCREEN_WIDTH, ty, color);
+
+	// draw bottom box
+	myGraphics.DrawSolidRect(0, SCREEN_HEIGHT - ty, SCREEN_WIDTH, SCREEN_HEIGHT, color);
+
+	// left pillar
+	myGraphics.DrawSolidRect(0, ty, tx, SCREEN_HEIGHT, color);
+
+	// right pillar
+	myGraphics.DrawSolidRect(SCREEN_WIDTH - tx, ty, SCREEN_WIDTH, SCREEN_HEIGHT, color);
 }

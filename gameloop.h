@@ -6,14 +6,18 @@
 #include "boGraph.h"
 
 class DrawObject;
+class PlaySurf;
 
 class GameLoop
 {
 private:
 	const word* my_clock;	// point to the 18.2hz system close
 
+	word tetra;
+
 	DrawObject* border;
 	BoGraphics graphics;
+	PlaySurf*  playSurf;	
 
 public:
 	GameLoop();
