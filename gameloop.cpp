@@ -148,7 +148,9 @@ void GameLoop::update()
 {
 	if (((*my_clock - tetra)/18.2) > .4)
 	{
+		//playSurf->PlaceGridCell(0,0,4);
 		playSurf->AdvanceRow();
+		playSurf->DrawTetro();
 		tetra = *my_clock;
 	}
 }
@@ -161,7 +163,7 @@ void GameLoop::render()
 	if (playSurf != NULL)
 	{
 		playSurf->DrawFrame();
-		playSurf->DrawTetro();
+		playSurf->DrawGrid();
 	}
 
 	graphics.FlipVideoBuffer();

@@ -1,0 +1,22 @@
+#ifndef __defs_h_
+#define __defs_h_
+
+#define COLUMNS 10
+#define ROWS 20
+#define GRID_SIZE COLUMNS * ROWS
+#define CELL_FILL_SIZE 7
+#define GRID_DIMENSION 8
+
+#define FRAME_COLOR 1
+#define FRAME_SPACER 10
+#define FRAME_LEFT_X 40
+#define FRAME_TOP_Y 15
+#define FRAME_RIGHT_X ((COLUMNS + 1) * GRID_DIMENSION) + FRAME_LEFT_X + FRAME_SPACER
+#define FRAME_BOTTOM_Y ((ROWS + 1) * GRID_DIMENSION) + FRAME_TOP_Y
+
+#define GRID_LEFT_X 50
+#define GRID_TOP_Y 20
+#define GRID_RIGHT_X (COLUMNS * GRID_DIMENSION) + GRID_LEFT_X 
+#define GRID_BOTTOM_Y (ROWS * GRID_DIMENSION) + GRID_TOP_Y 
+
+#endif
