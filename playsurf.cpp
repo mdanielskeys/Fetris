@@ -1,13 +1,28 @@
 #include "BoGraph.h"
+#include "Tetro.h"
+#include "Tetro1.h"
+#include "Tetro2.h"
+#include "Tetro3.h"
+#include "tetro4.h"
+#include "tetro5.h"
 #include "playsurf.h"
+#include <stdio.h>
 
 PlaySurf::PlaySurf(const BoGraphics& graphics) : playGraphics(graphics) 
 {
 	currentRow = -1;
-	currentCol = 0;
-	currentRotation = 0;
+	currentCol = 3;
 	maxRow = 0;
+	currentTetroIndex = 0;
 	InitGrids();
+
+	tetro[0] = new Tetro1(this);
+	tetro[1] = new Tetro2(this);
+	tetro[2] = new Tetro3(this);
+	tetro[3] = new Tetro4(this);
+	tetro[4] = new Tetro5(this);
+
+	currentTetro = tetro[currentTetroIndex];
 }
 
 void PlaySurf::InitGrids()
@@ -25,9 +40,18 @@ void PlaySurf::DrawFrame()
 	playGraphics.DrawRect(FRAME_LEFT_X, FRAME_TOP_Y, FRAME_RIGHT_X, FRAME_BOTTOM_Y, FRAME_COLOR);
 }
 
+int PlaySurf::CanAdvanceRow()
+{
+	int rc = 1; // true
+	rc = currentRow + currentTetro->GetMaxRow() < (ROWS - 1);
+
+	// for each next cell in the tetrino
+	return rc;
+}
+
 void PlaySurf::AdvanceRow()
 {
-	if (currentRow + maxRow < (ROWS - 1))
+	if (CanAdvanceRow())
 	{
 		currentRow += 1;
 	}
@@ -35,7 +59,15 @@ void PlaySurf::AdvanceRow()
 	{
 		// copy current grid to saved grid
 		SaveCurrentGrid();
+
 		currentRow = 0;
+		currentCol = 3;
+		currentTetroIndex += 1;
+		if (currentTetroIndex > 4)
+		{
+			currentTetroIndex = 0;
+		}
+		currentTetro = tetro[currentTetroIndex];
 	}
 
 	DrawSavedGrid();
@@ -43,7 +75,7 @@ void PlaySurf::AdvanceRow()
 
 void PlaySurf::MoveRight()
 {
-	if (currentCol + 1 <= (COLUMNS - 3))
+	if (currentCol + 1 <= (COLUMNS - currentTetro->GetMaxCol()))
 	{
 		currentCol += 1;
 	}
@@ -61,6 +93,8 @@ void PlaySurf::MoveLeft()
 
 void PlaySurf::RotateCC()
 {
+	int currentRotation  = currentTetro->GetRotation();
+
 	if (currentRotation + 1 <= 3)
 	{
 		currentRotation += 1;
@@ -69,11 +103,13 @@ void PlaySurf::RotateCC()
 	{
 		currentRotation = 0;
 	}
+	currentTetro->SetRotation(currentRotation);
 	DrawTetro();
 }
 
 void PlaySurf::RotateCW()
 {
+	int currentRotation  = currentTetro->GetRotation();
 	if (currentRotation - 1 >= 0)
 	{
 		currentRotation -= 1;
@@ -82,37 +118,15 @@ void PlaySurf::RotateCW()
 	{
 		currentRotation = 3;
 	}
+	currentTetro->SetRotation(currentRotation);
 	DrawTetro();
 }
 
 void PlaySurf::DrawTetro()
 {
 	DrawSavedGrid();
-	switch(currentRotation)
-	{
-		case 0:
-			PlaceGridCell(0,0, 4); PlaceGridCell(0,1,4); PlaceGridCell(0,2,4);
-							   PlaceGridCell(1,1,4);			
-		    maxRow = 1;
-			break;
-		case 1:
-			PlaceGridCell(0,0,4);
-			PlaceGridCell(1,0,4); PlaceGridCell(1,1,4);
-			PlaceGridCell(2,0,4);
-			maxRow = 2;
-			break;
-		case 2:
-							   PlaceGridCell(0,1,4);
-			PlaceGridCell(1,0,4); PlaceGridCell(1,1,4); PlaceGridCell(1,2,4);
-			maxRow = 1;
-			break;
-		case 3:
-								PlaceGridCell(0,1,4);
-			PlaceGridCell(1,0,4);	PlaceGridCell(1,1,4);
-								PlaceGridCell(2,1,4);
-			maxRow = 2;
-			break;
-	}
+
+	currentTetro->DrawTetro();
 }
 
 void PlaySurf::PlaceGridCell(int row, int col, unsigned char color)
@@ -158,4 +172,6 @@ void PlaySurf::DrawGrid()
 			DrawGridCell(row, col, playGrid[(row*COLUMNS)+col]);
 		}
 	}
+	sprintf(msg,"currentTetroIndex %d					\n", currentTetroIndex);
+	playGraphics.Gputs(1, 1, msg, 15, 0);
 }

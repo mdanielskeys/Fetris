@@ -1,47 +1,31 @@
 #include "Tetro.h"
 #include "defs.h"
+#include "PlaySurf.h"
 #include <stdlib.h>
 
-	Tetro::Tetro()
-	{
-		color = rand()%256 + 1;
-	}
+Tetro::Tetro(PlaySurf *playSurf)
+{
+	rotation = 0;
+	surface = playSurf;
+	color = rand()%256 + 1;
+}
 
-	Tetro::~Tetro()
-	{
-	}
+int Tetro::GetRotation()
+{
+	return rotation;
+}
 
-	void Tetro::RotateCW()
-	{
+void Tetro::SetRotation(int rot)
+{
+	rotation = rot;
+}
 
-	}
+int Tetro::GetMaxRow()
+{
+	return maxRow;
+}
 
-	void Tetro::RotateCC()
-	{
-
-	}
-
-	void Tetro::MoveLeft()
-	{
-		if (column - 1 > 0)
-		{
-			column -= 1;
-		}
-	}
-
-	void Tetro::MoveRight()
-	{
-		if (column + 1 < COLUMNS )
-		{
-			column += 1;
-		}
-	}
-
-	void Tetro::AdvanceVertical()
-	{		
-		if (row + 1 < ROWS)
-		{
-			row += 1;
-		}
-	}
-
+int Tetro::GetMaxCol()
+{
+	return maxCol;
+}
