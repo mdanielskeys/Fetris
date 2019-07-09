@@ -45,7 +45,9 @@ int PlaySurf::CanAdvanceRow()
 	int rc = 1; // true
 	rc = currentRow + currentTetro->GetMaxRow() < (ROWS - 1);
 
-	// for each next cell in the tetrino
+	// for each next cell in the tetrino check to see if it is beyond the bottom
+	// or if it collides with an existing filled in cell
+
 	return rc;
 }
 
