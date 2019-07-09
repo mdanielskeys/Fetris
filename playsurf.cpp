@@ -150,6 +150,6 @@ void PlaySurf::DrawGrid()
 			DrawGridCell(row, col, playGrid[(row*COLUMNS)+col]);
 		}
 	}
-	sprintf(msg,"currentTetroIndex %d					\n", currentTetroIndex);
+	sprintf(msg,"currentTetroIndex %02d", currentTetroIndex);
 	playGraphics.Gputs(1, 1, msg, 15, 0);
 }

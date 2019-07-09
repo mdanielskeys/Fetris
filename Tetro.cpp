@@ -107,8 +107,8 @@ int Tetro::GetMaxCol()
 
 void Tetro::Rotate()
 {
-	int transx = 0;
-	int transy = 0;
+	int maxY, minY = 0;
+	int maxX, minX = 0;
 
 	// Apply rotation matrix to each point
 	for(int i=0; i<4; i++)
@@ -118,18 +118,30 @@ void Tetro::Rotate()
 		int newY = tpoint[i].x;
 
 		// keep track of minimums to translate after
-		if (newX < transx)
+		if (newX < minX)
 		{
-			transx = abs(newX);
+			minX = newX;
 		}
-		if (newY < transy)
+		if (newX > maxX)
 		{
-			transy = abs(newY);
+			maxX = newX;			
+		}
+
+		if (newY < minY)
+		{
+			minY = newY;
+		}
+		if (newY > maxY)
+		{
+			maxY = newY;
 		}
 
 		tpoint[i].x = newX;
 		tpoint[i].y = newY;
 	}
+
+	int transx = 0;
+	int transy = 0;
 
 	maxCol = 0;
 	maxRow = 0;
