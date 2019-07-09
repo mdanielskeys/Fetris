@@ -1,10 +1,5 @@
 #include "BoGraph.h"
 #include "Tetro.h"
-#include "Tetro1.h"
-#include "Tetro2.h"
-#include "Tetro3.h"
-#include "tetro4.h"
-#include "tetro5.h"
 #include "playsurf.h"
 #include <stdio.h>
 
@@ -16,11 +11,11 @@ PlaySurf::PlaySurf(const BoGraphics& graphics) : playGraphics(graphics)
 	currentTetroIndex = 0;
 	InitGrids();
 
-	tetro[0] = new Tetro1(this);
-	tetro[1] = new Tetro2(this);
-	tetro[2] = new Tetro3(this);
-	tetro[3] = new Tetro4(this);
-	tetro[4] = new Tetro5(this);
+	tetro[0] = new Tetro(this, 0);
+	tetro[1] = new Tetro(this, 1);
+	tetro[2] = new Tetro(this, 2);
+	tetro[3] = new Tetro(this, 3);
+	tetro[4] = new Tetro(this, 4);
 
 	currentTetro = tetro[currentTetroIndex];
 }
@@ -93,32 +88,15 @@ void PlaySurf::MoveLeft()
 
 void PlaySurf::RotateCC()
 {
-	int currentRotation  = currentTetro->GetRotation();
+	currentTetro->Rotate();
 
-	if (currentRotation + 1 <= 3)
-	{
-		currentRotation += 1;
-	}
-	else
-	{
-		currentRotation = 0;
-	}
-	currentTetro->SetRotation(currentRotation);
 	DrawTetro();
 }
 
 void PlaySurf::RotateCW()
 {
-	int currentRotation  = currentTetro->GetRotation();
-	if (currentRotation - 1 >= 0)
-	{
-		currentRotation -= 1;
-	}
-	else
-	{
-		currentRotation = 3;
-	}
-	currentTetro->SetRotation(currentRotation);
+	currentTetro->Rotate();
+
 	DrawTetro();
 }
 
