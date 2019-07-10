@@ -22,6 +22,10 @@ PlaySurf::PlaySurf(const BoGraphics& graphics) : playGraphics(graphics)
 
 void PlaySurf::InitGrids()
 {
+	currentRow = -1;
+	currentCol = 3;
+	currentTetroIndex = 0;
+	
 	for (int i = 0; i < GRID_SIZE; i++)
 	{
 		savedGrid[i] = 1;

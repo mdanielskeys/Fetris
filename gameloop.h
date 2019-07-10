@@ -5,6 +5,7 @@
 
 #include "boGraph.h"
 
+
 class DrawObject;
 class PlaySurf;
 
@@ -18,6 +19,7 @@ private:
 	DrawObject* border;
 	BoGraphics graphics;
 	PlaySurf*  playSurf;	
+	int gameState; // 0 - splash 1 - playing
 
 public:
 	GameLoop();

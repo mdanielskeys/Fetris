@@ -6,6 +6,8 @@
 Tetro::Tetro(PlaySurf *playSurf, int tetrinoType)
 {
 	rotation = 0;
+	minX = 0;
+	minY = 0;
 	surface = playSurf;
 
 	switch (tetrinoType)
@@ -30,10 +32,10 @@ Tetro::Tetro(PlaySurf *playSurf, int tetrinoType)
 				* * *
 				    * 
 		 */
-		tpoint[0].x = 0; tpoint[0].y = 1;
-		tpoint[1].x = 1; tpoint[1].y = 1;
-		tpoint[2].x = 2; tpoint[2].y = 1;
-		tpoint[3].x = 2; tpoint[3].y = 0;
+		tpoint[0].x = 0; tpoint[0].y = 0;
+		tpoint[1].x = 1; tpoint[1].y = 0;
+		tpoint[2].x = 2; tpoint[2].y = 0;
+		tpoint[3].x = 2; tpoint[3].y = -1;
 		color =  3;
 		maxRow = 1;
 		maxCol = 2;
@@ -54,13 +56,13 @@ Tetro::Tetro(PlaySurf *playSurf, int tetrinoType)
 	case 3:
 		/*
 			Tetrino Shape
-				* * *
-				  *				     
+				  * 
+				* *	*			     
 		 */
-		tpoint[0].x = 0; tpoint[0].y = 1;
-		tpoint[1].x = 1; tpoint[1].y = 1;
-		tpoint[2].x = 2; tpoint[2].y = 1;
-		tpoint[3].x = 1; tpoint[3].y = 0;
+		tpoint[0].x = 0; tpoint[0].y = 0;
+		tpoint[1].x = 1; tpoint[1].y = 0;
+		tpoint[2].x = 2; tpoint[2].y = 0;
+		tpoint[3].x = 1; tpoint[3].y = 1;
 		color =  5;
 		maxRow = 1;
 		maxCol = 2;
@@ -82,6 +84,70 @@ Tetro::Tetro(PlaySurf *playSurf, int tetrinoType)
 	
 	default:
 		break;
+	}
+	SetZPoints();		
+}
+
+void Tetro::SetZPoints()
+{
+	for(int i=0;i<4;i++)
+	{
+		zpoint[i].x = tpoint[i].x;
+		zpoint[i].y = tpoint[i].y;
+	}
+	SetMins();
+	TranslateToZero();
+}
+
+void Tetro::TranslateToZero()
+{
+	int tranx = 0;
+	int trany = 0;
+
+	if (minX < tranx)
+	{
+		tranx = abs(minX);
+	}
+	if (minY < trany)
+	{
+		trany = abs(minY);
+	}
+	
+	maxCol = 0;
+	maxRow = 0;
+	// translate points back to 0
+	for(int i=0; i<4; i++)
+	{
+		zpoint[i].x += tranx;
+		zpoint[i].y += trany;
+		if (maxRow < zpoint[i].y)
+		{
+			maxRow = zpoint[i].y;
+		}
+		if (maxCol < zpoint[i].x)
+		{
+			maxCol = zpoint[i].x;
+		}
+	}
+
+}
+
+void Tetro::SetMins()
+{
+	minX = 0;
+	minY = 0;
+
+	for(int i=0;i<4;i++)
+	{
+		if (zpoint[i].x < minX)
+		{
+			minX = zpoint[i].x;
+		}	
+
+		if (zpoint[i].y < minY)
+		{
+			minY = zpoint[i].y;
+		}
 	}
 }
 
@@ -107,8 +173,8 @@ int Tetro::GetMaxCol()
 
 void Tetro::Rotate()
 {
-	int maxY, minY = 0;
-	int maxX, minX = 0;
+	minX = 0;
+	minY = 0;
 
 	// Apply rotation matrix to each point
 	for(int i=0; i<4; i++)
@@ -122,49 +188,24 @@ void Tetro::Rotate()
 		{
 			minX = newX;
 		}
-		if (newX > maxX)
-		{
-			maxX = newX;			
-		}
 
 		if (newY < minY)
 		{
 			minY = newY;
-		}
-		if (newY > maxY)
-		{
-			maxY = newY;
 		}
 
 		tpoint[i].x = newX;
 		tpoint[i].y = newY;
 	}
 
-	int transx = 0;
-	int transy = 0;
-
-	maxCol = 0;
-	maxRow = 0;
-	// translate points back to 0
-	for(int i=0; i<4; i++)
-	{
-		tpoint[i].x += transx;
-		tpoint[i].y += transy;
-		if (maxRow < tpoint[i].y)
-		{
-			maxRow = tpoint[i].y;
-		}
-		if (maxCol < tpoint[i].x)
-		{
-			maxCol = tpoint[i].x;
-		}
-	}
+	SetZPoints();
+	TranslateToZero();
 }
 
 void Tetro::DrawTetro()
 {
 	for (int i = 0; i < 4; i++)
 	{
-		surface->PlaceGridCell(tpoint[i].y, tpoint[i].x, color);
+		surface->PlaceGridCell(zpoint[i].y, zpoint[i].x, color);
 	}
 }

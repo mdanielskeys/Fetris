@@ -14,9 +14,15 @@ protected:
 	int rotation;			// how the tetrino is rotate 0 - 3
 	int maxRow;
 	int maxCol;
+	int minX;
+	int minY;
 	point tpoint[4];
+	point zpoint[4];
 	unsigned char color;
-
+	void SetZPoints();
+	void SetMins();
+	void TranslateToZero();
+	
 	PlaySurf* surface;
 
 public:

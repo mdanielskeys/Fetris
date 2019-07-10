@@ -19,4 +19,7 @@
 #define GRID_RIGHT_X (COLUMNS * GRID_DIMENSION) + GRID_LEFT_X 
 #define GRID_BOTTOM_Y (ROWS * GRID_DIMENSION) + GRID_TOP_Y 
 
+#define SPLASH 0
+#define PLAYING 1
+
 #endif
