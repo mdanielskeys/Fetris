@@ -16,6 +16,8 @@ PlaySurf::PlaySurf(const BoGraphics& graphics) : playGraphics(graphics)
 	tetro[2] = new Tetro(this, 2);
 	tetro[3] = new Tetro(this, 3);
 	tetro[4] = new Tetro(this, 4);
+	tetro[5] = new Tetro(this, 5);
+	tetro[6] = new Tetro(this, 6);
 
 	currentTetro = tetro[currentTetroIndex];
 }
@@ -41,8 +43,7 @@ void PlaySurf::DrawFrame()
 
 int PlaySurf::CanAdvanceRow()
 {
-	int rc = 1; // true
-	rc = currentRow + currentTetro->GetMaxRow() < (ROWS - 1);
+	int rc = currentTetro->IsDrawingOnScreen(currentRow+1, ROWS); // true
 
 	// for each next cell in the tetrino
 	return rc;
@@ -62,7 +63,7 @@ void PlaySurf::AdvanceRow()
 		currentRow = 0;
 		currentCol = 3;
 		currentTetroIndex += 1;
-		if (currentTetroIndex > 4)
+		if (currentTetroIndex > TETRINOS)
 		{
 			currentTetroIndex = 0;
 		}
@@ -108,6 +109,16 @@ void PlaySurf::DrawTetro()
 {
 	DrawSavedGrid();
 
+	// brace the tetro to the side
+	if (currentCol + currentTetro->GetMaxCol() > COLUMNS)
+	{
+		currentCol = COLUMNS - currentTetro->GetMaxCol();
+	} 
+	if (currentRow + currentTetro->GetMinRow() < 0)
+	{
+		currentRow += currentRow - currentTetro->GetMinRow();
+	}
+
 	currentTetro->DrawTetro();
 }
 
@@ -115,6 +126,22 @@ void PlaySurf::PlaceGridCell(int row, int col, unsigned char color)
 {
 	int rowOffset = row + currentRow;
 	int colOffset = col + currentCol;
+	if (rowOffset < 0)
+	{
+		rowOffset = 0;
+	}
+	if (rowOffset > ROWS)
+	{
+		rowOffset = ROWS;
+	}
+	if (colOffset < 0)
+	{ 
+		colOffset = 0;
+	}
+	if (colOffset > COLUMNS - 1)
+	{
+		colOffset = COLUMNS - 1;
+	}
 	playGrid[(rowOffset*COLUMNS)+colOffset] = color;
 }
 
@@ -154,6 +181,6 @@ void PlaySurf::DrawGrid()
 			DrawGridCell(row, col, playGrid[(row*COLUMNS)+col]);
 		}
 	}
-	sprintf(msg,"currentTetroIndex %02d", currentTetroIndex);
+	sprintf(msg,"%s cRow %d cCol %d", currentTetro->PositionMsg(), currentRow, currentCol);
 	playGraphics.Gputs(1, 1, msg, 15, 0);
 }

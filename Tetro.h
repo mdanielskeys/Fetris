@@ -19,10 +19,10 @@ protected:
 	point tpoint[4];
 	point zpoint[4];
 	unsigned char color;
-	void SetZPoints();
 	void SetMins();
-	void TranslateToZero();
-	
+	char msg[256];
+	void SetMaxs();
+
 	PlaySurf* surface;
 
 public:
@@ -32,6 +32,9 @@ public:
 	int GetMaxRow();
 	int GetMaxCol();
 	void Rotate();
+	char * PositionMsg();
+	int GetMinRow();
+	int IsDrawingOnScreen(int row, int LAST_ROW);
 
 public:
 	virtual void DrawTetro();

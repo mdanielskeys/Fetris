@@ -11,7 +11,7 @@ class PlaySurf
 private:
 	const BoGraphics &playGraphics;
 	char msg[255];
-	Tetro *tetro[5];
+	Tetro *tetro[TETRINOS];
 	Tetro *currentTetro;
 	int currentTetroIndex;
 	unsigned char playGrid[GRID_SIZE];

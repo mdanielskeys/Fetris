@@ -33,10 +33,29 @@ bool GameLoop::init()
 	}
 
 	playSurf = new PlaySurf(graphics);
+	//startScreen = new bitmapfile("title.bmp");
+	SavePalette();
+	startScreen = new pcxfile("title.pcx", graphics, 1);
 
 	tetra = *my_clock;
 
 	return true;
+}
+
+void GameLoop::SavePalette()
+{
+	for (int i=0;i<256;i++)
+	{
+		graphics.ReadPaletteRegister(i, &defaultPalette[i]);
+	}
+}
+
+void GameLoop::LoadPalette(RGB_color *palette)
+{
+	for (int i=0; i<256; i++)
+	{
+		graphics.SetPaletteRegister(i, palette + i);
+	}
 }
 
 int GameLoop::shutdown()
@@ -59,6 +78,7 @@ int GameLoop::processInput()
 			if (key == 'Q' || key == 'q')
 			{
 				gameState = SPLASH;
+				startScreen->LoadPalette();
 			}
 			if (key == 'd')
 			{
@@ -76,12 +96,25 @@ int GameLoop::processInput()
 			{
 				playSurf->RotateCW();
 			}
+			if (key == 'b')
+			{
+				if (NoAdvance)
+				{
+					NoAdvance = 0;
+				}
+				else 
+				{
+					NoAdvance = 1;
+				}
+			}
 		}
 		else
 		{
 			if (key == 'G' || key == 'g')
 			{
+				LoadPalette(defaultPalette);
 				playSurf->InitGrids();
+				NoAdvance = 0;
 				gameState = PLAYING;
 			}
 			if (key == 'Q' || key == 'q')
@@ -102,7 +135,10 @@ void GameLoop::update()
 		if (((*my_clock - tetra)/18.2) > .4)
 		{
 			//playSurf->PlaceGridCell(0,0,4);
-			playSurf->AdvanceRow();
+			if (!NoAdvance)
+			{
+				playSurf->AdvanceRow();
+			}
 			playSurf->DrawTetro();
 			tetra = *my_clock;
 		}
@@ -124,12 +160,15 @@ void GameLoop::render()
 	}
 	else
 	{
+		startScreen->DrawImage();
+		/* 
 		char * msg1 = "Press 'G' to start the game.";
 		char * msg2 = "Press 'Q' to quit.";
 		char * msg = "Fetris - A Poor Tetris Clone";
 		graphics.Gputs(160 - (8*strlen(msg))/2, 50, msg, 2, 0);
 		graphics.Gputs(160 - (8*strlen(msg1))/2, 100, msg1, 3, 0);
 		graphics.Gputs(160 - (8*strlen(msg2))/2, 110, msg2, 3, 0);
+		*/
 	}
 	
 
