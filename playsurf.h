@@ -11,13 +11,12 @@ class PlaySurf
 private:
 	const BoGraphics &playGraphics;
 	char msg[255];
-	Tetro *tetro[5];
+	Tetro *tetro[TETRINOS];
 	Tetro *currentTetro;
 	int currentTetroIndex;
 	unsigned char playGrid[GRID_SIZE];
 	unsigned char savedGrid[GRID_SIZE];
 	void DrawGridCell(int row, int col, unsigned char color);
-	void InitGrids();
 	void SaveCurrentGrid();
 	int CanAdvanceRow();
 	int currentRow;
@@ -37,6 +36,7 @@ public:
 	void DrawGrid();
 	void DrawTetro();
 	void DrawSavedGrid();
+	void InitGrids();
 };
 
 #endif

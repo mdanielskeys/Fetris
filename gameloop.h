@@ -4,6 +4,8 @@
 #define __gameloop_h_
 
 #include "boGraph.h"
+#include "bitmap.h"
+#include "pcx.h"
 
 class DrawObject;
 class PlaySurf;
@@ -15,10 +17,18 @@ private:
 
 	word tetra;
 
+	//bitmapfile *startScreen;
+	pcxfile *startScreen;
 	DrawObject* border;
 	BoGraphics graphics;
 	PlaySurf*  playSurf;	
+	int gameState; // 0 - splash 1 - playing
+	int NoAdvance;
+	RGB_color defaultPalette[256];
 
+	void SavePalette();
+	void LoadPalette(RGB_color *palette);
+	
 public:
 	GameLoop();
 	int processInput();

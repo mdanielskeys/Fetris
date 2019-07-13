@@ -1,4 +1,6 @@
+#include "defs.h"
 #include "boGraph.h"
+
 #include <conio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -202,4 +204,30 @@ void BoGraphics::DrawRect(int x1, int y1, int x2, int y2, byte color) const
 		DrawPixel(x1, py, color);
 		DrawPixel(x2, py, color);
 	}
+}
+
+void BoGraphics::SetPaletteRegister(int index, RGB_color_ptr color)
+{
+	outp(PALETTE_MASK, 0xff);
+
+	outp(PALETTE_REGISTER_WR, index);
+	outp(PALETTE_DATA, color->red);
+	outp(PALETTE_DATA, color->green);
+	outp(PALETTE_DATA, color->blue);
+}
+
+void BoGraphics::ReadPaletteRegister(int index, RGB_color_ptr color)
+{
+	outp(PALETTE_MASK, 0xff);
+
+	outp(PALETTE_REGISTER_RD, index);
+
+	color->red = inp(PALETTE_DATA);
+	color->green = inp(PALETTE_DATA);
+	color->blue = inp(PALETTE_DATA);
+}
+
+void BoGraphics::ScreenCopy(char * image)
+{
+	memcpy(double_buffer, image, SCREEN_HEIGHT * SCREEN_WIDTH);
 }
