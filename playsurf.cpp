@@ -30,8 +30,8 @@ void PlaySurf::InitGrids()
 	
 	for (int i = 0; i < GRID_SIZE; i++)
 	{
-		savedGrid[i] = 1;
-		playGrid[i] = 1;
+		savedGrid[i] = GRID_COLOR;
+		playGrid[i] = GRID_COLOR;
 	}
 
 }
@@ -44,6 +44,11 @@ void PlaySurf::DrawFrame()
 int PlaySurf::CanAdvanceRow()
 {
 	int rc = currentTetro->IsDrawingOnScreen(currentRow+1, ROWS); // true
+
+	if (rc)
+	{
+		rc = !currentTetro->WillTetroCollide(currentRow+1, currentCol, savedGrid);
+	}
 
 	// for each next cell in the tetrino
 	return rc;
