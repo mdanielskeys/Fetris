@@ -146,6 +146,28 @@ int Tetro::IsDrawingOnScreen(int row, int LAST_ROW)
 	return rc;
 }
 
+int Tetro::WillTetroCollide(int row, int column, unsigned char* playGrid)
+{
+	int rc = 0;
+
+	for (int i=0;i < 4; i++)
+	{
+		int dy = row + (tpoint[i].y - maxRow);
+		if (dy < 0)
+		{
+			dy = 0;
+		}
+		int dx = column + (tpoint[i].x + abs(minX));
+		if (playGrid[dy * COLUMNS + dx] != GRID_COLOR)
+		{
+			rc = 1;
+			break;
+		}
+	}
+
+	return rc;
+}
+
 void Tetro::SetMaxs()
 {
 	maxCol = 0;

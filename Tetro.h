@@ -35,6 +35,7 @@ public:
 	char * PositionMsg();
 	int GetMinRow();
 	int IsDrawingOnScreen(int row, int LAST_ROW);
+	int WillTetroCollide(int row, int column, unsigned char* playGrid);
 
 public:
 	virtual void DrawTetro();

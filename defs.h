@@ -44,6 +44,8 @@
 #define CHAR_WIDTH 	  		8
 #define CHAR_HEIGHT   		8
 
+#define GRID_COLOR          1
+
 #define SGN(x) ((x<0)?-1:((x>0)?1:0)) /* macro to return the sign of a
                                          number */
 
