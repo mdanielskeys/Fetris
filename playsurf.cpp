@@ -84,7 +84,10 @@ void PlaySurf::MoveRight()
 {
 	if (currentCol + 1 <= (COLUMNS - currentTetro->GetMaxCol()))
 	{
-		currentCol += 1;
+		if (!currentTetro->WillTetroCollide(currentRow, currentCol+1, savedGrid))
+		{
+			currentCol += 1;
+		}
 	}
 	DrawTetro();
 }
@@ -93,7 +96,10 @@ void PlaySurf::MoveLeft()
 {
 	if (currentCol - 1 >= 0)
 	{
-		currentCol -= 1;
+		if (!currentTetro->WillTetroCollide(currentRow, currentCol-1, savedGrid))
+		{
+			currentCol -= 1;
+		}
 	}
 	DrawTetro();
 }
