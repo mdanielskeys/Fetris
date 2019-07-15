@@ -58,7 +58,7 @@ void BoGraphics::FlipVideoBuffer()
 
 void BoGraphics::ClearScreen()
 {
-	memset(double_buffer, 0, SCREEN_SIZE);
+	memset(double_buffer, 253, SCREEN_SIZE);
 }
 
 void BoGraphics::DrawPixel(word x, word y, byte color) const 
@@ -206,7 +206,7 @@ void BoGraphics::DrawRect(int x1, int y1, int x2, int y2, byte color) const
 	}
 }
 
-void BoGraphics::SetPaletteRegister(int index, RGB_color_ptr color)
+void BoGraphics::SetPaletteRegister(int index, const RGB_color_ptr color) const
 {
 	outp(PALETTE_MASK, 0xff);
 
@@ -216,7 +216,7 @@ void BoGraphics::SetPaletteRegister(int index, RGB_color_ptr color)
 	outp(PALETTE_DATA, color->blue);
 }
 
-void BoGraphics::ReadPaletteRegister(int index, RGB_color_ptr color)
+void BoGraphics::ReadPaletteRegister(int index, RGB_color_ptr color) const
 {
 	outp(PALETTE_MASK, 0xff);
 
@@ -227,7 +227,7 @@ void BoGraphics::ReadPaletteRegister(int index, RGB_color_ptr color)
 	color->blue = inp(PALETTE_DATA);
 }
 
-void BoGraphics::ScreenCopy(char * image)
+void BoGraphics::ScreenCopy(char * image) const
 {
 	memcpy(double_buffer, image, SCREEN_HEIGHT * SCREEN_WIDTH);
 }

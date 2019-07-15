@@ -71,7 +71,7 @@ void bitmapfile::fskip(FILE *fp, int num_bytes)
       fgetc(fp);
 }
 
-void bitmapfile::DrawImage(BoGraphics& graphics)
+void bitmapfile::DrawImage(const BoGraphics& graphics)
 {
     graphics.ScreenCopy((char *)image.data);
 }

@@ -8,10 +8,10 @@ class pcxfile
 {
 private:
     pcx_picture image;
-    BoGraphics &graphics;
+    const BoGraphics &graphics;
 
 public:
-    pcxfile(char *filename, BoGraphics& graphics, int enable_pallette);
+    pcxfile(char *filename, const BoGraphics& graphics, int enable_pallette);
     ~pcxfile();
 
     void DrawImage();

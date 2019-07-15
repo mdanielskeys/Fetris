@@ -9,7 +9,7 @@ pcxfile::~pcxfile()
     delete[] image.buffer;
 }
 
-pcxfile::pcxfile(char *filename, BoGraphics& gr, int enable_pallette) : graphics(gr)
+pcxfile::pcxfile(char *filename, const BoGraphics& gr, int enable_pallette) : graphics(gr)
 {
     FILE *fp;
     int num_bytes, index;

@@ -5,6 +5,7 @@
 
 class BoGraphics;
 class Tetro;
+class pcxfile;
 
 class PlaySurf
 {
@@ -13,6 +14,7 @@ private:
 	char msg[255];
 	Tetro *tetro[TETRINOS];
 	Tetro *currentTetro;
+	pcxfile *playScreen;
 	int currentTetroIndex;
 	unsigned char playGrid[GRID_SIZE];
 	unsigned char savedGrid[GRID_SIZE];

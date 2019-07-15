@@ -26,11 +26,11 @@ bool GameLoop::init()
 	}
 
 	// Initilize my graphics objects
-	border = new Border(graphics);
-	if (border == NULL)
-	{
-		return false;
-	}
+	//border = new Border(graphics);
+	//if (border == NULL)
+	//{
+	//	return false;
+	//}
 
 	playSurf = new PlaySurf(graphics);
 	//startScreen = new bitmapfile("title.bmp");
@@ -112,7 +112,7 @@ int GameLoop::processInput()
 		{
 			if (key == 'G' || key == 'g')
 			{
-				LoadPalette(defaultPalette);
+				//LoadPalette(defaultPalette);
 				playSurf->InitGrids();
 				NoAdvance = 0;
 				gameState = PLAYING;
@@ -148,7 +148,7 @@ void GameLoop::update()
 void GameLoop::render()
 {
 	graphics.ClearScreen();	
-	border->Draw();
+	//border->Draw();
 
 	if (gameState == PLAYING)
 	{

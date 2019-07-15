@@ -28,9 +28,9 @@ public:
 	void DrawRect(int x1, int y1, int x2, int y2, byte color) const;
 	
 	void DrawPixel(word x, word y, byte color) const;
-	void ScreenCopy(char * image);
-	void SetPaletteRegister(int index, RGB_color_ptr color);
-	void ReadPaletteRegister(int index, RGB_color_ptr color);
+	void ScreenCopy(char * image) const ;
+	void SetPaletteRegister(int index, RGB_color_ptr color) const;
+	void ReadPaletteRegister(int index, RGB_color_ptr color) const;
 };
 
 #endif

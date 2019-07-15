@@ -1,6 +1,6 @@
 Open Watcom Linker Version 1.9
 Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
-Created on:       19/07/14 10:53:02
+Created on:       19/07/14 19:04:50
 Executable Image: fetris.exe
 creating a DOS/4G executable
 
@@ -12,7 +12,7 @@ creating a DOS/4G executable
 Group                           Address              Size
 =====                           =======              ====
 
-DGROUP                          0002:00000000        00010ef0
+DGROUP                          0002:00000000        00010ee0
 
 
 
@@ -24,24 +24,24 @@ Segment                Class          Group          Address         Size
 =======                =====          =====          =======         ====
 
 BEGTEXT                CODE           AUTO           0001:00000000   00000010
-_TEXT                  CODE           AUTO           0001:00000010   0000d5fb
+_TEXT                  CODE           AUTO           0001:00000010   0000d57b
 _NULL                  BEGDATA        DGROUP         0002:00000000   00000004
 _AFTERNULL             BEGDATA        DGROUP         0002:00000004   00000000
-CONST                  DATA           DGROUP         0002:00000004   00000250
-CONST2                 DATA           DGROUP         0002:00000260   0000012c
-_DATA                  DATA           DGROUP         0002:0000038c   00000898
-XIB                    DATA           DGROUP         0002:00000c24   00000000
-XI                     DATA           DGROUP         0002:00000c24   0000004e
-XIE                    DATA           DGROUP         0002:00000c72   00000000
-YIB                    DATA           DGROUP         0002:00000c72   00000000
-YI                     DATA           DGROUP         0002:00000c72   00000024
-YIE                    DATA           DGROUP         0002:00000c96   00000000
-TIB                    DATA           DGROUP         0002:00000c96   00000000
-TI                     DATA           DGROUP         0002:00000c96   00000000
-TIE                    DATA           DGROUP         0002:00000c96   00000000
-DATA                   DATA           DGROUP         0002:00000c96   00000000
-_BSS                   BSS            DGROUP         0002:00000c98   00000250
-STACK                  STACK          DGROUP         0002:00000ef0   00010000
+CONST                  DATA           DGROUP         0002:00000004   00000248
+CONST2                 DATA           DGROUP         0002:00000250   0000012c
+_DATA                  DATA           DGROUP         0002:0000037c   00000898
+XIB                    DATA           DGROUP         0002:00000c14   00000000
+XI                     DATA           DGROUP         0002:00000c14   0000004e
+XIE                    DATA           DGROUP         0002:00000c62   00000000
+YIB                    DATA           DGROUP         0002:00000c62   00000000
+YI                     DATA           DGROUP         0002:00000c62   00000024
+YIE                    DATA           DGROUP         0002:00000c86   00000000
+TIB                    DATA           DGROUP         0002:00000c86   00000000
+TI                     DATA           DGROUP         0002:00000c86   00000000
+TIE                    DATA           DGROUP         0002:00000c86   00000000
+DATA                   DATA           DGROUP         0002:00000c86   00000000
+_BSS                   BSS            DGROUP         0002:00000c88   00000250
+STACK                  STACK          DGROUP         0002:00000ee0   00010000
 
 
                         +----------------+
@@ -60,7 +60,7 @@ Module: bitmap.obj(C:\PROJECTS\FETRIS\bitmap.cpp)
 0001:0000008d* near bitmapfile::~bitmapfile()
 0001:000000c6* near bitmapfile::bitmapfile( char near * )
 0001:000002a9+ void near bitmapfile::fskip( __iobuf near *, int )
-0001:000002f0* void near bitmapfile::DrawImage( BoGraphics near & )
+0001:000002f0* void near bitmapfile::DrawImage( BoGraphics const near & )
 Module: bograph.obj(C:\PROJECTS\FETRIS\bograph.cpp)
 0001:00000323  near BoGraphics::BoGraphics()
 0001:00000363+ void near BoGraphics::setVideoMode( char unsigned )
@@ -68,540 +68,540 @@ Module: bograph.obj(C:\PROJECTS\FETRIS\bograph.cpp)
 0001:000003f9  void near BoGraphics::SetTextMode()
 0001:0000043e  void near BoGraphics::FlipVideoBuffer()
 0001:00000497  void near BoGraphics::ClearScreen()
-0001:000004cd+ void near BoGraphics::DrawPixel( short unsigned, short unsigned, char unsigned ) const
-0001:0000053d+ void near BoGraphics::Gputch( int, int, int, int, int ) const
-0001:00000634  void near BoGraphics::Gputs( int, int, char near *, int, int ) const
-0001:0000069e+ void near BoGraphics::DrawLine( int, int, int, int, char unsigned )
-0001:00000825* void near BoGraphics::Polygon( int, int near *, char unsigned )
-0001:000008de  void near BoGraphics::DrawSolidRect( int, int, int, int, char unsigned ) const
-0001:0000094b  void near BoGraphics::DrawRect( int, int, int, int, char unsigned ) const
-0001:000009f4  void near BoGraphics::SetPaletteRegister( int, RGB_color_typ near * )
-0001:00000a68  void near BoGraphics::ReadPaletteRegister( int, RGB_color_typ near * )
-0001:00000adf  void near BoGraphics::ScreenCopy( char near * )
+0001:000004d0+ void near BoGraphics::DrawPixel( short unsigned, short unsigned, char unsigned ) const
+0001:00000540+ void near BoGraphics::Gputch( int, int, int, int, int ) const
+0001:00000637* void near BoGraphics::Gputs( int, int, char near *, int, int ) const
+0001:000006a1+ void near BoGraphics::DrawLine( int, int, int, int, char unsigned )
+0001:00000828* void near BoGraphics::Polygon( int, int near *, char unsigned )
+0001:000008e1  void near BoGraphics::DrawSolidRect( int, int, int, int, char unsigned ) const
+0001:0000094e* void near BoGraphics::DrawRect( int, int, int, int, char unsigned ) const
+0001:000009f7  void near BoGraphics::SetPaletteRegister( int, RGB_color_typ near * ) const
+0001:00000a6b  void near BoGraphics::ReadPaletteRegister( int, RGB_color_typ near * ) const
+0001:00000ae2  void near BoGraphics::ScreenCopy( char near * ) const
 Module: border.obj(C:\PROJECTS\FETRIS\border.cpp)
-0001:00000b17  near Border::Border( BoGraphics near & )
-0001:00000b5d  void near DrawObject::Draw()
+0001:00000b1a* near Border::Border( BoGraphics near & )
+0001:00000b60  void near DrawObject::Draw()
 Module: drawobj.obj(C:\PROJECTS\FETRIS\drawobj.cpp)
-0001:00000c12  near DrawObject::DrawObject( BoGraphics near & )
+0001:00000c15  near DrawObject::DrawObject( BoGraphics near & )
 Module: gameloop.obj(C:\PROJECTS\FETRIS\gameloop.cpp)
-0001:00000c52  near GameLoop::GameLoop()
-0001:00000ca3  bool near GameLoop::init()
-0001:00000dd6+ void near GameLoop::SavePalette()
-0001:00000e30+ void near GameLoop::LoadPalette( RGB_color_typ near * )
-0001:00000e86  int near GameLoop::shutdown()
-0001:00000ebf  int near GameLoop::processInput()
-0001:00000fe9  void near GameLoop::update()
-0001:0000106c  void near GameLoop::render()
+0001:00000c55  near GameLoop::GameLoop()
+0001:00000ca6  bool near GameLoop::init()
+0001:00000d8c+ void near GameLoop::SavePalette()
+0001:00000de6* void near GameLoop::LoadPalette( RGB_color_typ near * )
+0001:00000e3c  int near GameLoop::shutdown()
+0001:00000e75  int near GameLoop::processInput()
+0001:00000f91  void near GameLoop::update()
+0001:00001014  void near GameLoop::render()
 Module: pcx.obj(C:\PROJECTS\FETRIS\pcx.cpp)
-0001:000010ef* near pcxfile::~pcxfile()
-0001:0000112b  near pcxfile::pcxfile( char near *, BoGraphics near &, int )
-0001:00001302  void near pcxfile::LoadPalette()
-0001:00001361  void near pcxfile::DrawImage()
+0001:00001083* near pcxfile::~pcxfile()
+0001:000010bf  near pcxfile::pcxfile( char near *, BoGraphics const near &, int )
+0001:00001296  void near pcxfile::LoadPalette()
+0001:000012f5  void near pcxfile::DrawImage()
 Module: playsurf.obj(C:\PROJECTS\FETRIS\playsurf.cpp)
-0001:0000139c  near PlaySurf::PlaySurf( BoGraphics const near & )
-0001:000015e9  void near PlaySurf::InitGrids()
-0001:00001668  void near PlaySurf::DrawFrame()
-0001:000016b0+ int near PlaySurf::CanAdvanceRow()
-0001:00001747  void near PlaySurf::AdvanceRow()
-0001:000017ec  void near PlaySurf::MoveRight()
-0001:00001874  void near PlaySurf::MoveLeft()
-0001:000018e5  void near PlaySurf::RotateCC()
-0001:0000191f  void near PlaySurf::RotateCW()
-0001:00001959  void near PlaySurf::DrawTetro()
-0001:00001a20  void near PlaySurf::PlaceGridCell( int, int, char unsigned )
-0001:00001aac+ void near PlaySurf::DrawGridCell( int, int, char unsigned )
-0001:00001b19+ void near PlaySurf::DrawSavedGrid()
-0001:00001b6f+ void near PlaySurf::SaveCurrentGrid()
-0001:00001bc5  void near PlaySurf::DrawGrid()
+0001:00001330  near PlaySurf::PlaySurf( BoGraphics const near & )
+0001:000015c2  void near PlaySurf::InitGrids()
+0001:00001641  void near PlaySurf::DrawFrame()
+0001:00001673+ int near PlaySurf::CanAdvanceRow()
+0001:0000170a  void near PlaySurf::AdvanceRow()
+0001:000017bd  void near PlaySurf::MoveRight()
+0001:00001845  void near PlaySurf::MoveLeft()
+0001:000018b6  void near PlaySurf::RotateCC()
+0001:000018f0  void near PlaySurf::RotateCW()
+0001:0000192a  void near PlaySurf::DrawTetro()
+0001:000019f1  void near PlaySurf::PlaceGridCell( int, int, char unsigned )
+0001:00001a7d+ void near PlaySurf::DrawGridCell( int, int, char unsigned )
+0001:00001aea+ void near PlaySurf::DrawSavedGrid()
+0001:00001b40+ void near PlaySurf::SaveCurrentGrid()
+0001:00001b96  void near PlaySurf::DrawGrid()
 Module: tetro.obj(C:\PROJECTS\FETRIS\tetro.cpp)
-0001:00001c8a  near Tetro::Tetro( PlaySurf near *, int )
-0001:00002048  char near * near Tetro::PositionMsg()
-0001:000020bd  int near Tetro::IsDrawingOnScreen( int, int )
-0001:0000212d  int near Tetro::WillTetroCollide( int, int, char unsigned near * )
-0001:000021d9+ void near Tetro::SetMaxs()
-0001:00002274+ void near Tetro::SetMins()
-0001:0000230f* int near Tetro::GetRotation()
-0001:0000233e* void near Tetro::SetRotation( int )
-0001:0000236b  int near Tetro::GetMinRow()
-0001:0000239b* int near Tetro::GetMaxRow()
-0001:000023cb  int near Tetro::GetMaxCol()
-0001:000023fc  void near Tetro::Rotate()
-0001:00002486+ void near Tetro::DrawTetro()
+0001:00001c07  near Tetro::Tetro( PlaySurf near *, int )
+0001:00001fc5* char near * near Tetro::PositionMsg()
+0001:0000203a  int near Tetro::IsDrawingOnScreen( int, int )
+0001:000020aa  int near Tetro::WillTetroCollide( int, int, char unsigned near * )
+0001:00002156+ void near Tetro::SetMaxs()
+0001:000021f1+ void near Tetro::SetMins()
+0001:0000228c* int near Tetro::GetRotation()
+0001:000022bb* void near Tetro::SetRotation( int )
+0001:000022e8  int near Tetro::GetMinRow()
+0001:00002318* int near Tetro::GetMaxRow()
+0001:00002348  int near Tetro::GetMaxCol()
+0001:00002379  void near Tetro::Rotate()
+0001:00002403+ void near Tetro::DrawTetro()
 Module: C:\WAT19/lib386/dos\clib3r.lib(stk)
-0001:0000252b* __STK
-0001:00002518  __CHK
-0001:00002528* __GRO
-0001:00002549* __STKOVERFLOW_
+0001:000024a7* __STK
+0001:00002494  __CHK
+0001:000024a4* __GRO
+0001:000024c5* __STKOVERFLOW_
 Module: C:\WAT19/lib386/dos\clib3r.lib(cstart)
 0001:00000003* ___begtext
 0002:00000000* __nullarea
-0002:000003a0  __D16Infoseg
-0002:000003a2  __x386_zero_base_selector
-0001:00002558  _cstart_
-0001:000027a6  __exit_
-0001:000027a8  __do_exit_with_msg__
-0001:000027f0  __GETDS
-0001:000027f0  ___GETDSStart_
-0001:000027fb  ___GETDSEnd_
+0002:00000390  __D16Infoseg
+0002:00000392  __x386_zero_base_selector
+0001:000024d4  _cstart_
+0001:00002722  __exit_
+0001:00002724  __do_exit_with_msg__
+0001:0000276c  __GETDS
+0001:0000276c  ___GETDSStart_
+0001:00002777  ___GETDSEnd_
 Module: C:\WAT19/lib386/dos\clib3r.lib(argcv.c)
-0002:00000c98  __argc
-0002:00000c9c  __argv
-0002:00000ca0  ___argc
-0002:00000ca4  ___argv
+0002:00000c88  __argc
+0002:00000c8c  __argv
+0002:00000c90  ___argc
+0002:00000c94  ___argv
 Module: C:\WAT19/lib386\plib3r.lib(fsroot.cpp)
-0002:00000c30  ___wcpp_4_data_init_fs_root_
+0002:00000c20  ___wcpp_4_data_init_fs_root_
 Module: C:\WAT19/lib386\plib3r.lib(opdelarr.cpp)
-0001:00002810  void near operator delete []( void near * )
+0001:00002790  void near operator delete []( void near * )
 Module: C:\WAT19/lib386/dos\clib3r.lib(fopen.c)
-0001:00002820+ __open_flags_
-0001:00002a20+ _fsopen_
-0001:00002a70  fopen_
-0001:00002af0* freopen_
+0001:000027a0+ __open_flags_
+0001:000029a0+ _fsopen_
+0001:000029f0  fopen_
+0001:00002a70* freopen_
 Module: C:\WAT19/lib386/dos\clib3r.lib(printf.c)
-0001:00002b50  printf_
+0001:00002ad0  printf_
 Module: C:\WAT19/lib386/dos\clib3r.lib(fgetc.c)
-0001:00002b80  __fill_buffer_
-0001:00002c80  fgetc_
+0001:00002b00  __fill_buffer_
+0001:00002c00  fgetc_
 Module: C:\WAT19/lib386/dos\clib3r.lib(fclose.c)
-0001:00002d20  __doclose_
-0001:00002da0  __shutdown_stream_
-0001:00002dc0  fclose_
-0002:00000ca8+ ___RmTmpFileFn
+0001:00002ca0  __doclose_
+0001:00002d20  __shutdown_stream_
+0001:00002d40  fclose_
+0002:00000c98+ ___RmTmpFileFn
 Module: C:\WAT19/lib386/dos\clib3r.lib(fread.c)
-0001:00002df0  fread_
+0001:00002d70  fread_
 Module: C:\WAT19/lib386\plib3r.lib(opnewarr.cpp)
-0001:00002fc0  void near * near operator new []( int unsigned )
+0001:00002f40  void near * near operator new []( int unsigned )
 Module: C:\WAT19/lib386/dos\clib3r.lib(inp.c)
-0001:00002fd0  inp_
+0001:00002f50  inp_
 Module: C:\WAT19/lib386/dos\clib3r.lib(memcpy.c)
-0001:00002fe0  memcpy_
+0001:00002f60  memcpy_
 Module: C:\WAT19/lib386/dos\clib3r.lib(memset.c)
-0001:00003010  memset_
+0001:00002f90  memset_
 Module: C:\WAT19/lib386/dos\clib3r.lib(abs.c)
-0001:00003030  abs_
+0001:00002fb0  abs_
 Module: C:\WAT19/lib386/dos\clib3r.lib(outp.c)
-0001:00003040  outp_
+0001:00002fc0  outp_
 Module: C:\WAT19/lib386/dos\clib3r.lib(time.c)
-0001:00003050  time_
+0001:00002fd0  time_
 Module: C:\WAT19/lib386/dos\clib3r.lib(rand.c)
-0001:00003090* rand_
-0001:000030c0  srand_
+0001:00003010  rand_
+0001:00003040  srand_
 Module: C:\WAT19/lib386\plib3r.lib(opnew.cpp)
-0001:000030e0  void near * near operator new( int unsigned )
+0001:00003060  void near * near operator new( int unsigned )
 Module: C:\WAT19/lib386/dos\clib3r.lib(kbhit.c)
-0001:00003130  kbhit_
+0001:000030b0  kbhit_
 Module: C:\WAT19/lib386/dos\clib3r.lib(getch.c)
-0001:00003150  getch_
+0001:000030d0  getch_
 Module: C:\WAT19/lib386/dos\clib3r.lib(fltused.c)
-0002:000003a8  _fltused_
+0002:00000398  _fltused_
 Module: C:\WAT19/lib386\plib3r.lib(iofefg.cpp)
-0002:00000c3c  __ppfltused_
+0002:00000c2c  __ppfltused_
 Module: C:\WAT19/lib386/dos\emu387.lib(386)
-0001:000031a4  __init_387_emulator
-0001:000031a9* __fini_387_emulator
+0001:00003124  __init_387_emulator
+0001:00003129* __fini_387_emulator
 Module: C:\WAT19/lib386/dos\clib3r.lib(_8087)
-0002:000003ac  __8087
-0002:000003ad  __real87
+0002:0000039c  __8087
+0002:0000039d  __real87
 Module: C:\WAT19/lib386/dos\clib3r.lib(getc.c)
-0001:000031b0  getc_
+0001:00003130  getc_
 Module: C:\WAT19/lib386/dos\clib3r.lib(fseek.c)
-0001:00003240  fseek_
+0001:000031c0  fseek_
 Module: C:\WAT19/lib386/dos\clib3r.lib(sprintf.c)
-0001:00003340  sprintf_
+0001:000032c0  sprintf_
 Module: C:\WAT19/lib386/dos\clib3r.lib(xmsg.c)
-0001:00003370* __exit_with_msg_
-0001:00003380  __fatal_runtime_error_
+0001:000032f0* __exit_with_msg_
+0001:00003300  __fatal_runtime_error_
 Module: C:\WAT19/lib386/dos\clib3r.lib(crwdata)
-0002:000003eb  __osmajor
-0002:000003ec  __osminor
-0002:000003c0  __psp
-0002:000003e2  __Extender
-0002:000003e3  __ExtenderSubtype
-0002:000003e4  __X32VM
-0002:000003c4* __x386_stacklow
-0002:000003b8  __LpCmdLine
-0002:000003bc  __LpPgmName
-0002:000003b0  __dynend
-0002:000003b4  __curbrk
-0002:000003c4  __STACKLOW
-0002:000003c8  __STACKTOP
-0002:000003cc  __ASTACKSIZ
-0002:000003d0  __ASTACKPTR
-0002:000003d4  __cbyte
-0002:000003d8* __cbyte2
-0002:000003dc  __child
-0002:000003e5  __Envptr
-0002:000003e9  __Envseg
-0002:000003e0  __no87
-0002:000003ed  ___FPE_handler
+0002:000003db  __osmajor
+0002:000003dc  __osminor
+0002:000003b0  __psp
+0002:000003d2  __Extender
+0002:000003d3  __ExtenderSubtype
+0002:000003d4  __X32VM
+0002:000003b4* __x386_stacklow
+0002:000003a8  __LpCmdLine
+0002:000003ac  __LpPgmName
+0002:000003a0  __dynend
+0002:000003a4  __curbrk
+0002:000003b4  __STACKLOW
+0002:000003b8  __STACKTOP
+0002:000003bc  __ASTACKSIZ
+0002:000003c0  __ASTACKPTR
+0002:000003c4  __cbyte
+0002:000003c8* __cbyte2
+0002:000003cc  __child
+0002:000003d5  __Envptr
+0002:000003d9  __Envseg
+0002:000003d0  __no87
+0002:000003dd  ___FPE_handler
 Module: C:\WAT19/lib386/dos\clib3r.lib(cmain386.c)
-0001:000033b0  __CMain
+0001:00003330  __CMain
 Module: C:\WAT19/lib386/dos\clib3r.lib(initrtns.c)
-0001:00003400  __InitRtns
-0001:00003450  __FiniRtns
+0001:00003380  __InitRtns
+0001:000033d0  __FiniRtns
 Module: C:\WAT19/lib386/dos\clib3r.lib(dosseg)
 0000:00001234  __DOSseg__
 Module: C:\WAT19/lib386/dos\clib3r.lib(uselfn.c)
-0002:000003f4  ___uselfn
+0002:000003e4  ___uselfn
 Module: C:\WAT19/lib386/dos\clib3r.lib(initargv.c)
-0001:000034b0  __Init_Argv_
-0001:00003500+ _getargv_
-0001:000036a0  __Fini_Argv_
+0001:00003430  __Init_Argv_
+0001:00003480+ _getargv_
+0001:00003620  __Fini_Argv_
 Module: C:\WAT19/lib386\plib3r.lib(cppdata.cpp)
-0002:00000cb0  __wint_thread_data
-0002:00000cd4* __compiled_under_generic
+0002:00000ca0  __wint_thread_data
+0002:00000cc4* __compiled_under_generic
 Module: C:\WAT19/lib386\plib3r.lib(opdel.cpp)
-0001:000036b0  void near operator delete( void near * )
+0001:00003630  void near operator delete( void near * )
 Module: C:\WAT19/lib386/dos\clib3r.lib(comtflag.c)
-0001:000036c0* __set_commode_
-0002:000003f8  __commode
+0001:00003640* __set_commode_
+0002:000003e8  __commode
 Module: C:\WAT19/lib386/dos\clib3r.lib(iob.c)
-0002:000003fc  ___iob
-0002:00000604  __fmode
-0002:00000cd8  ___OpenStreams
-0002:00000cdc  ___ClosedStreams
+0002:000003ec  ___iob
+0002:000005f4  __fmode
+0002:00000cc8  ___OpenStreams
+0002:00000ccc  ___ClosedStreams
 Module: C:\WAT19/lib386/dos\clib3r.lib(seterrno.c)
-0001:000036d0  __set_errno_
-0001:000036dc* __set_EDOM_
-0001:000036e8  __set_ERANGE_
-0001:000036f4* __set_EINVAL_
-0001:00003705  __set_doserrno_
+0001:00003650  __set_errno_
+0001:0000365c* __set_EDOM_
+0001:00003668  __set_ERANGE_
+0001:00003674* __set_EINVAL_
+0001:00003685  __set_doserrno_
 Module: C:\WAT19/lib386/dos\clib3r.lib(tolower.c)
-0001:00003720  tolower_
+0001:000036a0  tolower_
 Module: C:\WAT19/lib386/dos\clib3r.lib(open.c)
-0001:00003970* open_
-0001:00003990  sopen_
+0001:000038f0* open_
+0001:00003910  sopen_
 Module: C:\WAT19/lib386/dos\clib3r.lib(chktty.c)
-0001:000039c0  __chktty_
+0001:00003940  __chktty_
 Module: C:\WAT19/lib386/dos\clib3r.lib(freefp.c)
-0001:00003a00  __freefp_
-0001:00003a40  __purgefp_
+0001:00003980  __freefp_
+0001:000039c0  __purgefp_
 Module: C:\WAT19/lib386/dos\clib3r.lib(allocfp.c)
-0001:00003a70  __allocfp_
+0001:000039f0  __allocfp_
 Module: C:\WAT19/lib386/dos\clib3r.lib(fprtf.c)
-0001:00003b50  __fprtf_
+0001:00003ad0  __fprtf_
 Module: C:\WAT19/lib386/dos\clib3r.lib(flushall.c)
-0001:00003bf0  __flushall_
-0001:00003c30* flushall_
+0001:00003b70  __flushall_
+0001:00003bb0* flushall_
 Module: C:\WAT19/lib386/dos\clib3r.lib(gtche.c)
-0001:00003c40  getche_
+0001:00003bc0  getche_
 Module: C:\WAT19/lib386/dos\clib3r.lib(ioalloc.c)
-0001:00003c60  __ioalloc_
+0001:00003be0  __ioalloc_
 Module: C:\WAT19/lib386/dos\clib3r.lib(qread.c)
-0001:00003d00  __qread_
+0001:00003c80  __qread_
 Module: C:\WAT19/lib386/dos\clib3r.lib(__lseek.c)
-0001:00003d30  __lseek_
+0001:00003cb0  __lseek_
 Module: C:\WAT19/lib386/dos\clib3r.lib(_clse.c)
-0001:00003d80  __close_
+0001:00003d00  __close_
 Module: C:\WAT19/lib386/dos\clib3r.lib(nfree.c)
-0001:00003dd0  _nfree_
-0001:00003dd0  free_
-0002:00000ce0  ___MiniHeapFreeRover
+0001:00003d50  _nfree_
+0001:00003d50  free_
+0002:00000cd0  ___MiniHeapFreeRover
 Module: C:\WAT19/lib386/dos\clib3r.lib(flush.c)
-0001:00003ed0  __flush_
+0001:00003e50  __flush_
 Module: C:\WAT19/lib386/dos\clib3r.lib(__stos)
-0001:00003fc0  __STOSB
-0001:00003ff7* __STOSD
+0001:00003f40  __STOSB
+0001:00003f77* __STOSD
 Module: C:\WAT19/lib386/dos\clib3r.lib(gtctm.c)
-0001:00004070  __getctime_
+0001:00003ff0  __getctime_
 Module: C:\WAT19/lib386/dos\clib3r.lib(mktime.c)
-0001:00004140  mktime_
+0001:000040c0  mktime_
 Module: C:\WAT19/lib386/dos\clib3r.lib(nmalloc.c)
-0001:000041d0  _nmalloc_
-0001:000041d0  malloc_
-0002:00000608  ___nheapbeg
-0002:0000060c  ___MiniHeapRover
-0002:00000610  ___LargestSizeB4MiniHeapRover
+0001:00004150  _nmalloc_
+0001:00004150  malloc_
+0002:000005f8  ___nheapbeg
+0002:000005fc  ___MiniHeapRover
+0002:00000600  ___LargestSizeB4MiniHeapRover
 Module: C:\WAT19/lib386/dos\clib3r.lib(setefg.c)
-0001:000042d0  __setEFGfmt_
+0001:00004250  __setEFGfmt_
 Module: C:\WAT19/lib386\plib3r.lib(iofnoefg.cpp)
-0002:00000614  void (near * near __EFG_cnvs2d)( char near *, double near * )
-0002:00000618  int (near * near __EFG_cnvd2f)( double near *, float near * )
-0002:0000061c  void (near * near __EFG_LDcvt)( __6ks9tmlong_double near *, cvt_info near *, char near * )
-0002:00000620  char near * (near * near __EFG_fcvt)( double, int, int near *, int near * )
-0002:00000624  void (near * near __EFG__FDLD)( double near *, __6ks9tmlong_double near * )
+0002:00000604  void (near * near __EFG_cnvs2d)( char near *, double near * )
+0002:00000608  int (near * near __EFG_cnvd2f)( double near *, float near * )
+0002:0000060c  void (near * near __EFG_LDcvt)( __6ks9tmlong_double near *, cvt_info near *, char near * )
+0002:00000610  char near * (near * near __EFG_fcvt)( double, int, int near *, int near * )
+0002:00000614  void (near * near __EFG__FDLD)( double near *, __6ks9tmlong_double near * )
 Module: C:\WAT19/lib386\math387r.lib(cnvs2d.c)
-0001:00004302  __cnvs2d_
+0001:00004282  __cnvs2d_
 Module: C:\WAT19/lib386\math387r.lib(cnvd2f.c)
-0001:00004310  __cnvd2f_
+0001:00004290  __cnvd2f_
 Module: C:\WAT19/lib386\math387r.lib(ldcvt.c)
-0001:00004462  _LDScale10x_
-0001:00004a09  __LDcvt_
+0001:000043e2  _LDScale10x_
+0001:00004989  __LDcvt_
 Module: C:\WAT19/lib386\math387r.lib(_i_fcvt_.asm)
-0001:00004e58  _fcvt_
+0001:00004dd8  _fcvt_
 Module: C:\WAT19/lib386\math387r.lib(cnvd2ld.c)
-0001:00004e5d  __cnvd2ld_
+0001:00004ddd  __cnvd2ld_
 Module: C:\WAT19/lib386/dos\clib3r.lib(dosinite.asm)
-0001:00004e62  __sys_init_387_emulator
-0001:00004f92  __sys_fini_387_emulator
+0001:00004de2  __sys_init_387_emulator
+0001:00004f12  __sys_fini_387_emulator
 Module: C:\WAT19/lib386/dos\clib3r.lib(chk8087.c)
-0001:00005070* _fpreset_
-0001:00005090+ __init_8087_
-0001:000050d0+ __default_sigfpe_handler_
-0001:000050f0  __chk8087_
+0001:00004ff0* _fpreset_
+0001:00005010+ __init_8087_
+0001:00005050+ __default_sigfpe_handler_
+0001:00005070  __chk8087_
 Module: C:\WAT19/lib386/dos\clib3r.lib(lseek.c)
-0001:00005160  lseek_
+0001:000050e0  lseek_
 Module: C:\WAT19/lib386/dos\clib3r.lib(tell.c)
-0001:00005190  tell_
+0001:00005110  tell_
 Module: C:\WAT19/lib386/dos\clib3r.lib(vsprintf.c)
-0001:000051d0  vsprintf_
+0001:00005150  vsprintf_
 Module: C:\WAT19/lib386/dos\clib3r.lib(enterdb.c)
-0001:000051f0  __EnterWVIDEO_
-0002:0000071c+ ___WD_Present
+0001:00005170  __EnterWVIDEO_
+0002:0000070c+ ___WD_Present
 Module: C:\WAT19/lib386/dos\clib3r.lib(cinit.c)
-0001:00005220  __CommonInit_
+0001:000051a0  __CommonInit_
 Module: C:\WAT19/lib386/dos\clib3r.lib(___argc.c)
-0002:00000ce4  ____Argc
-0002:00000ce8  ____Argv
+0002:00000cd4  ____Argc
+0002:00000cd8  ____Argv
 Module: C:\WAT19/lib386/dos\clib3r.lib(exit.c)
-0001:00005280+ __null_int23_exit_
-0001:00005281  exit_
-0001:000052ad* _exit_
-0002:00000720+ ___int23_exit
-0002:00000724  ___FPE_handler_exit
+0001:00005200+ __null_int23_exit_
+0001:00005201  exit_
+0001:0000522d* _exit_
+0002:00000710+ ___int23_exit
+0002:00000714  ___FPE_handler_exit
 Module: C:\WAT19/lib386/dos\clib3r.lib(sgdef086)
-0002:00000c24  __Start_XI
-0002:00000c72  __End_XI
-0002:00000c72  __Start_YI
-0002:00000c96  __End_YI
+0002:00000c14  __Start_XI
+0002:00000c62  __End_XI
+0002:00000c62  __Start_YI
+0002:00000c86  __End_YI
 Module: C:\WAT19/lib386/dos\clib3r.lib(histsplt.c)
-0002:00000cec  ___historical_splitparms
+0002:00000cdc  ___historical_splitparms
 Module: C:\WAT19/lib386/dos\clib3r.lib(initfile.c)
-0001:000052d0  __InitFiles_
+0001:00005250  __InitFiles_
 Module: C:\WAT19/lib386/dos\clib3r.lib(ioexit.c)
-0001:000053d0* fcloseall_
-0001:000053e0  __full_io_exit_
+0001:00005350* fcloseall_
+0001:00005360  __full_io_exit_
 Module: C:\WAT19/lib386/dos\clib3r.lib(errno.c)
-0001:000053f0  __get_errno_ptr_
-0001:00005400  __get_doserrno_ptr_
-0002:00000cf0+ _errno
-0002:00000cf4+ __doserrno
+0001:00005370  __get_errno_ptr_
+0001:00005380  __get_doserrno_ptr_
+0002:00000ce0+ _errno
+0002:00000ce4+ __doserrno
 Module: C:\WAT19/lib386/dos\clib3r.lib(opendos.c)
-0001:00005410  _dos_open_
+0001:00005390  _dos_open_
 Module: C:\WAT19/lib386/dos\clib3r.lib(iomode.c)
-0001:00005430  __GetIOMode_
-0001:00005450  __SetIOMode_nogrow_
-0002:00000728  ___NFiles
-0002:0000072c  ___init_mode
-0002:0000077c  ___io_mode
+0001:000053b0  __GetIOMode_
+0001:000053d0  __SetIOMode_nogrow_
+0002:00000718  ___NFiles
+0002:0000071c  ___init_mode
+0002:0000076c  ___io_mode
 Module: C:\WAT19/lib386/dos\clib3r.lib(isatt.c)
-0001:00005470  isatty_
+0001:000053f0  isatty_
 Module: C:\WAT19/lib386/dos\clib3r.lib(dosret.c)
-0001:00005490  _dosretax_
-0001:000054a0* _dosret0_
-0001:000054b0  __set_errno_dos_
-0001:00005530* __set_errno_dos_reterr_
+0001:00005410  _dosretax_
+0001:00005420* _dosret0_
+0001:00005430  __set_errno_dos_
+0001:000054b0* __set_errno_dos_reterr_
 Module: C:\WAT19/lib386/dos\clib3r.lib(umaskval.c)
-0002:00000794  ___umaskval
+0002:00000784  ___umaskval
 Module: C:\WAT19/lib386/dos\clib3r.lib(creatdos.c)
-0001:00005540  _dos_creat_
-0001:00005560* _dos_creatnew_
+0001:000054c0  _dos_creat_
+0001:000054e0* _dos_creatnew_
 Module: C:\WAT19/lib386/dos\clib3r.lib(stiomode.c)
-0001:00005580+ __grow_iomode_
-0001:00005640+ __shrink_iomode_
-0001:00005670  __SetIOMode_
+0001:00005500+ __grow_iomode_
+0001:000055c0+ __shrink_iomode_
+0001:000055f0  __SetIOMode_
 Module: C:\WAT19/lib386/dos\clib3r.lib(fputc.c)
-0001:000056e0  fputc_
+0001:00005660  fputc_
 Module: C:\WAT19/lib386/dos\clib3r.lib(prtf.c)
-0001:000057a0  __prtf_
+0001:00005720  __prtf_
 Module: C:\WAT19/lib386/dos\clib3r.lib(mem.c)
-0001:00006610  __MemAllocator
-0001:000066c0  __MemFree
+0001:00006590  __MemAllocator
+0001:00006640  __MemFree
 Module: C:\WAT19/lib386/dos\clib3r.lib(qwrit.c)
-0001:00006800  __qwrite_
+0001:00006780  __qwrite_
 Module: C:\WAT19/lib386/dos\clib3r.lib(fsync.c)
-0001:00006880  fsync_
+0001:00006800  fsync_
 Module: C:\WAT19/lib386/dos\clib3r.lib(locmktim.c)
-0001:00006890  __local_mktime_
+0001:00006810  __local_mktime_
 Module: C:\WAT19/lib386/dos\clib3r.lib(gmtime.c)
-0001:00006a10  __brktime_
-0001:00006b10+ _gmtime_
-0001:00006b30* gmtime_
+0001:00006990  __brktime_
+0001:00006a90+ _gmtime_
+0001:00006ab0* gmtime_
 Module: C:\WAT19/lib386/dos\clib3r.lib(tzset.c)
-0002:00000798  ___start_dst
-0002:000007bc  ___end_dst
-0002:000008e4* _tzname
-0002:000008ec  _timezone
-0002:000008f0  _daylight
-0002:000008f4  ___dst_adjust
-0001:00006b40* __DontCacheOSTZ_
-0001:00006b50* __CacheOSTZ_
-0001:00007060+ __parse_tz_
-0001:00007290  tzset_
+0002:00000788  ___start_dst
+0002:000007ac  ___end_dst
+0002:000008d4* _tzname
+0002:000008dc  _timezone
+0002:000008e0  _daylight
+0002:000008e4  ___dst_adjust
+0001:00006ac0* __DontCacheOSTZ_
+0001:00006ad0* __CacheOSTZ_
+0001:00006fe0+ __parse_tz_
+0001:00007210  tzset_
 Module: C:\WAT19/lib386/dos\clib3r.lib(timeutil.c)
-0001:00007400  __isindst_
+0001:00007380  __isindst_
 Module: C:\WAT19/lib386/dos\clib3r.lib(nmemneed.c)
-0001:00007730  __nmemneed_
+0001:000076b0  __nmemneed_
 Module: C:\WAT19/lib386/dos\clib3r.lib(grownear.c)
-0001:000077c0+ __FreeDPMIBlocks_
-0001:00007830  __ReAllocDPMIBlock_
-0001:000079c0+ __LastFree_
-0001:00007c30  __ExpandDGROUP_
+0001:00007740+ __FreeDPMIBlocks_
+0001:000077b0  __ReAllocDPMIBlock_
+0001:00007940+ __LastFree_
+0001:00007bb0  __ExpandDGROUP_
 Module: C:\WAT19/lib386/dos\clib3r.lib(noefgfmt.c)
-0002:00000944  ___EFG_printf
-0002:00000948  ___EFG_scanf
+0002:00000934  ___EFG_printf
+0002:00000938  ___EFG_scanf
 Module: C:\WAT19/lib386\math387r.lib(efgfmt.c)
-0001:00007d92  _EFG_Format_
+0001:00007d12  _EFG_Format_
 Module: C:\WAT19/lib386\math387r.lib(strtod.c)
-0001:00008410+ __Strtold_
-0001:00008577  strtod_
+0001:00008390+ __Strtold_
+0001:000084f7  strtod_
 Module: C:\WAT19/lib386\math387r.lib(ldclass.c)
-0001:000086bb  __LDClass_
-0001:0000870b* _FLClass_
+0001:0000863b  __LDClass_
+0001:0000868b* _FLClass_
 Module: C:\WAT19/lib386\math387r.lib(efcvt.c)
-0001:0000874b* ecvt_
-0001:00008782  fcvt_
+0001:000086cb* ecvt_
+0001:00008702  fcvt_
 Module: C:\WAT19/lib386/dos\emu387.lib(emu387)
-0001:00008b78  __int7_pl3
-0001:00008b9c* __int7_X32VM
-0001:00008be8  __int7
+0001:00008af8  __int7_pl3
+0001:00008b1c* __int7_X32VM
+0001:00008b68  __int7
 Module: C:\WAT19/lib386/dos\clib3r.lib(hook387.c)
-0001:0000bd30  __hook387
-0001:0000bde0  __unhook387
+0001:0000bcb0  __hook387
+0001:0000bd60  __unhook387
 Module: C:\WAT19/lib386/dos\clib3r.lib(8087cw.c)
-0002:000009d0  __8087cw
+0002:000009c0  __8087cw
 Module: C:\WAT19/lib386/dos\clib3r.lib(save8087.c)
-0002:000009d4  ___Save8087
-0002:000009d8  ___Rest8087
+0002:000009c4  ___Save8087
+0002:000009c8  ___Rest8087
 Module: C:\WAT19/lib386/dos\clib3r.lib(init8087)
-0001:0000be24  __x87id
+0001:0000bda4  __x87id
 Module: C:\WAT19/lib386/dos\clib3r.lib(grabfp87.c)
-0001:0000be60  __GrabFP87_
+0001:0000bde0  __GrabFP87_
 Module: C:\WAT19/lib386/dos\clib3r.lib(amblksiz.c)
-0002:000009dc  __amblksiz
+0002:000009cc  __amblksiz
 Module: C:\WAT19/lib386/dos\clib3r.lib(dpmihost.c)
-0001:0000bed0  __DPMI_hosted_
+0001:0000be50  __DPMI_hosted_
 Module: C:\WAT19/lib386/dos\clib3r.lib(doserror)
-0001:0000bf68  __doserror_
+0001:0000bee8  __doserror_
 Module: C:\WAT19/lib386/dos\clib3r.lib(nrealloc.c)
-0001:0000bf80* _nrealloc_
-0001:0000bf80  realloc_
+0001:0000bf00* _nrealloc_
+0001:0000bf00  realloc_
 Module: C:\WAT19/lib386/dos\clib3r.lib(iomodtty.c)
-0001:0000c020  __ChkTTYIOMode_
-0001:0000c060* __IOMode_
+0001:0000bfa0  __ChkTTYIOMode_
+0001:0000bfe0* __IOMode_
 Module: C:\WAT19/lib386/dos\clib3r.lib(wctomb.c)
-0001:0000c080  wctomb_
+0001:0000c000  wctomb_
 Module: C:\WAT19/lib386/dos\clib3r.lib(itoa.c)
-0001:0000c0b0+ utoa_
-0001:0000c100  itoa_
+0001:0000c030+ utoa_
+0001:0000c080  itoa_
 Module: C:\WAT19/lib386/dos\clib3r.lib(strupr.c)
-0001:0000c130  strupr_
+0001:0000c0b0  strupr_
 Module: C:\WAT19/lib386/dos\clib3r.lib(lltoa.c)
-0001:0000c150  ulltoa_
-0001:0000c1c0* lltoa_
+0001:0000c0d0  ulltoa_
+0001:0000c140* lltoa_
 Module: C:\WAT19/lib386/dos\clib3r.lib(ltoa.c)
-0001:0000c1f0  ultoa_
-0001:0000c240* ltoa_
+0001:0000c170  ultoa_
+0001:0000c1c0* ltoa_
 Module: C:\WAT19/lib386/dos\clib3r.lib(mbisdbcs.c)
-0002:00000da0  ___IsDBCS
+0002:00000d90  ___IsDBCS
 Module: C:\WAT19/lib386/dos\clib3r.lib(mbislead.c)
-0001:0000c270* _ismbblead_
-0002:00000da4  ___MBCSIsTable
+0001:0000c1f0* _ismbblead_
+0002:00000d94  ___MBCSIsTable
 Module: C:\WAT19/lib386/dos\clib3r.lib(filedos.c)
-0001:0000c290* _dos_close_
-0001:0000c2a0  _dos_commit_
+0001:0000c210* _dos_close_
+0001:0000c220  _dos_commit_
 Module: C:\WAT19/lib386/dos\clib3r.lib(leapyear.c)
-0001:0000c2b0  __leapyear_
-0002:000001a8  ___diyr
-0002:000001c2  ___dilyr
+0001:0000c230  __leapyear_
+0002:000001a0  ___diyr
+0002:000001ba  ___dilyr
 Module: C:\WAT19/lib386/dos\clib3r.lib(getenv.c)
-0001:0000c2f0  getenv_
+0001:0000c270  getenv_
 Module: C:\WAT19/lib386/dos\clib3r.lib(heapen.c)
-0001:0000c380* _heapenable_
-0002:000009e4  ___heap_enabled
+0001:0000c300* _heapenable_
+0002:000009d4  ___heap_enabled
 Module: C:\WAT19/lib386/dos\clib3r.lib(minreal.c)
-0002:00000ea8  ___minreal
+0002:00000e98  ___minreal
 Module: C:\WAT19/lib386/dos\clib3r.lib(sbrk386.c)
-0001:0000c390* sbrk_
-0001:0000c470  __brk_
+0001:0000c310* sbrk_
+0001:0000c3f0  __brk_
 Module: C:\WAT19/lib386/dos\clib3r.lib(rtcntrl.c)
-0001:0000c590* _SetLD64bit_
-0001:0000c5a0* _SetLD80bit_
-0001:0000c5b0  _LDisDouble_
+0001:0000c510* _SetLD64bit_
+0001:0000c520* _SetLD80bit_
+0001:0000c530  _LDisDouble_
 Module: C:\WAT19/lib386/dos\clib3r.lib(istable.c)
-0002:00000280  __IsTable
+0002:00000270  __IsTable
 Module: C:\WAT19/lib386\math387r.lib(bufld386)
-0001:0000c5c0  __ZBuf2LD
+0001:0000c540  __ZBuf2LD
 Module: C:\WAT19/lib386\math387r.lib(inf_nan.c)
-0001:0000c663* ___f_infinity
-0001:0000c667* ___f_posqnan
-0001:0000c66b  ___d_infinity
-0001:0000c673  ___d_posqnan
-0001:0000c67b* ___ld_infinity
-0001:0000c683* ___ld_posqnan
+0001:0000c5e3* ___f_infinity
+0001:0000c5e7* ___f_posqnan
+0001:0000c5eb  ___d_infinity
+0001:0000c5f3  ___d_posqnan
+0001:0000c5fb* ___ld_infinity
+0001:0000c603* ___ld_posqnan
 Module: C:\WAT19/lib386/dos\clib3r.lib(hugeval.c)
-0002:00000384  __HugeValue
+0002:00000374  __HugeValue
 Module: C:\WAT19/lib386/dos\clib3r.lib(cvtbuf.c)
-0001:0000c690  __CVTBuffer_
+0001:0000c610  __CVTBuffer_
 Module: C:\WAT19/lib386\math387r.lib(cvt.c)
-0001:0000c696  __cvt_
+0001:0000c616  __cvt_
 Module: C:\WAT19/lib386/dos\clib3r.lib(fpexcept.c)
-0001:0000c720  __FPE_exception_
+0001:0000c6a0  __FPE_exception_
 Module: C:\WAT19/lib386/dos\clib3r.lib(fpe387)
-0002:000009ec  ___PMSeg
-0002:000009ee  ___PMAddr
-0002:000009f2  ___RMAddr
-0001:0000c728  __Init_FPE_handler_
-0001:0000c760  __Fini_FPE_handler_
+0002:000009dc  ___PMSeg
+0002:000009de  ___PMAddr
+0002:000009e2  ___RMAddr
+0001:0000c6a8  __Init_FPE_handler_
+0001:0000c6e0  __Fini_FPE_handler_
 Module: C:\WAT19/lib386/dos\clib3r.lib(fpeinth)
-0001:0000c79c  __FPEHandler_
-0001:0000c79c  ___FPEHandlerStart_
-0001:0000c7a9  __FPE2Handler_
-0001:0000c8ab  ___FPEHandlerEnd_
+0001:0000c71c  __FPEHandler_
+0001:0000c71c  ___FPEHandlerStart_
+0001:0000c729  __FPE2Handler_
+0001:0000c82b  ___FPEHandlerEnd_
 Module: C:\WAT19/lib386/dos\clib3r.lib(nmsize.c)
-0001:0000c9f0  _nmsize_
-0001:0000c9f0* _msize_
+0001:0000c970  _nmsize_
+0001:0000c970* _msize_
 Module: C:\WAT19/lib386/dos\clib3r.lib(nexpand.c)
-0001:0000ca00  _nexpand_
-0001:0000ca00* _expand_
-0001:0000ca70+ __HeapManager_expand_
+0001:0000c980  _nexpand_
+0001:0000c980* _expand_
+0001:0000c9f0+ __HeapManager_expand_
 Module: C:\WAT19/lib386/dos\clib3r.lib(alphabet.c)
-0002:000001dc  ___Alphabet
+0002:000001d4  ___Alphabet
 Module: C:\WAT19/lib386/dos\clib3r.lib(mbinit.c)
-0001:0000cc7a  __mbinit_
-0001:0000cd4b+ dos_get_dbcs_lead_table_
-0001:0000ce3f+ dos_get_code_page_
-0002:00000c14  ___MBCodePage
+0001:0000cbfa  __mbinit_
+0001:0000cccb+ dos_get_dbcs_lead_table_
+0001:0000cdbf+ dos_get_code_page_
+0002:00000c04  ___MBCodePage
 Module: C:\WAT19/lib386/dos\clib3r.lib(environ.c)
-0002:00000ed4  ___env_mask
-0002:00000ed8  _environ
-0002:00000edc* __wenviron
+0002:00000ec4  ___env_mask
+0002:00000ec8  _environ
+0002:00000ecc* __wenviron
 Module: C:\WAT19/lib386/dos\clib3r.lib(mbterm.c)
-0001:0000cfe0  _mbterm_
+0001:0000cf60  _mbterm_
 Module: C:\WAT19/lib386/dos\clib3r.lib(mbsnextc.c)
-0001:0000d020  _mbsnextc_
+0001:0000cfa0  _mbsnextc_
 Module: C:\WAT19/lib386/dos\clib3r.lib(mbcupper.c)
-0001:0000d060  _mbctoupper_
+0001:0000cfe0  _mbctoupper_
 Module: C:\WAT19/lib386/dos\clib3r.lib(mbsinc.c)
-0001:0000d080  _mbsinc_
+0001:0000d000  _mbsinc_
 Module: C:\WAT19/lib386/dos\clib3r.lib(fpephar)
-0001:0000d0b0  __Phar_hook_init_
-0001:0000d176  __Phar_hook_fini_
+0001:0000d030  __Phar_hook_init_
+0001:0000d0f6  __Phar_hook_fini_
 Module: C:\WAT19/lib386/dos\clib3r.lib(fpedos4g)
-0001:0000d1a4  __DOS4G_hook_init_
-0001:0000d1d2  __DOS4G_hook_fini_
+0001:0000d124  __DOS4G_hook_init_
+0001:0000d152  __DOS4G_hook_fini_
 Module: C:\WAT19/lib386/dos\clib3r.lib(intdx386.c)
-0001:0000d1f0  intdosx_
+0001:0000d170  intdosx_
 Module: C:\WAT19/lib386/dos\clib3r.lib(inirmsel.c)
-0002:00000ee0  __ExtenderRealModeSelector
+0002:00000ed0  __ExtenderRealModeSelector
 Module: C:\WAT19/lib386/dos\clib3r.lib(setenvp.c)
-0001:0000d370  __setenvp_
-0001:0000d450  __freeenvp_
+0001:0000d2f0  __setenvp_
+0001:0000d3d0  __freeenvp_
 Module: C:\WAT19/lib386/dos\clib3r.lib(toupper.c)
-0001:0000d4a0  toupper_
+0001:0000d420  toupper_
 Module: C:\WAT19/lib386/dos\clib3r.lib(mbdtoupp.c)
-0001:0000d4b0  _mbdtoupper_
+0001:0000d430  _mbdtoupper_
 Module: C:\WAT19/lib386/dos\clib3r.lib(fpeint.c)
-0002:00000c18  ___FPE_int
-0002:00000c19  ___IRQ_num
-0002:00000c1a+ ___IRQ_int
-0002:00000c1b  ___MST_pic
-0002:00000c1c+ ___SLV_pic
+0002:00000c08  ___FPE_int
+0002:00000c09  ___IRQ_num
+0002:00000c0a+ ___IRQ_int
+0002:00000c0b  ___MST_pic
+0002:00000c0c+ ___SLV_pic
 Module: C:\WAT19/lib386/dos\clib3r.lib(clearenv.c)
-0001:0000d520  clearenv_
+0001:0000d4a0  clearenv_
 Module: C:\WAT19/lib386/dos\clib3r.lib(nonibm.c)
-0001:0000d5b0+ __is_nonIBM_
-0002:00000c20  ___NonIBM
+0001:0000d530+ __is_nonIBM_
+0002:00000c10  ___NonIBM
 
 
                         +----------------------+
@@ -628,6 +628,6 @@ C:\WAT19/lib386/dos\emu387.lib
                         +-----------------------+
 
 Stack size:  00010000 (65536.)
-Memory size:  0001e4fb (124155.)
-Entry point address: 0001:00002558
-Link time: 00:00.29
+Memory size:  0001e46b (124011.)
+Entry point address: 0001:000024d4
+Link time: 00:00.74

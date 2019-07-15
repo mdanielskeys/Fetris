@@ -1,7 +1,10 @@
 #include "BoGraph.h"
 #include "Tetro.h"
+#include "pcx.h"
 #include "playsurf.h"
+
 #include <stdio.h>
+#include <stdlib.h>
 
 PlaySurf::PlaySurf(const BoGraphics& graphics) : playGraphics(graphics) 
 {
@@ -11,6 +14,8 @@ PlaySurf::PlaySurf(const BoGraphics& graphics) : playGraphics(graphics)
 	currentTetroIndex = 0;
 	InitGrids();
 
+	playScreen = new pcxfile("mscreen.pcx", graphics, 1);
+
 	tetro[0] = new Tetro(this, 0);
 	tetro[1] = new Tetro(this, 1);
 	tetro[2] = new Tetro(this, 2);
@@ -18,7 +23,7 @@ PlaySurf::PlaySurf(const BoGraphics& graphics) : playGraphics(graphics)
 	tetro[4] = new Tetro(this, 4);
 	tetro[5] = new Tetro(this, 5);
 	tetro[6] = new Tetro(this, 6);
-
+	
 	currentTetro = tetro[currentTetroIndex];
 }
 
@@ -38,7 +43,8 @@ void PlaySurf::InitGrids()
 
 void PlaySurf::DrawFrame()
 {
-	playGraphics.DrawRect(FRAME_LEFT_X, FRAME_TOP_Y, FRAME_RIGHT_X, FRAME_BOTTOM_Y, FRAME_COLOR);
+	playScreen->DrawImage();
+	// playGraphics.DrawRect(FRAME_LEFT_X, FRAME_TOP_Y, FRAME_RIGHT_X, FRAME_BOTTOM_Y, FRAME_COLOR);
 }
 
 int PlaySurf::CanAdvanceRow()
@@ -69,8 +75,8 @@ void PlaySurf::AdvanceRow()
 
 		currentRow = 0;
 		currentCol = 3;
-		currentTetroIndex += 1;
-		if (currentTetroIndex > TETRINOS)
+		currentTetroIndex = rand()/(RAND_MAX/TETRINOS);
+		if (currentTetroIndex > TETRINOS - 1)
 		{
 			currentTetroIndex = 0;
 		}
@@ -194,6 +200,6 @@ void PlaySurf::DrawGrid()
 			DrawGridCell(row, col, playGrid[(row*COLUMNS)+col]);
 		}
 	}
-	sprintf(msg,"%s cRow %d cCol %d", currentTetro->PositionMsg(), currentRow, currentCol);
-	playGraphics.Gputs(1, 1, msg, 15, 0);
+	//sprintf(msg,"%s cRow %d cCol %d", currentTetro->PositionMsg(), currentRow, currentCol);
+	//playGraphics.Gputs(1, 1, msg, 15, 0);
 }

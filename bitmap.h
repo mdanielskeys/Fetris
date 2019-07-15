@@ -15,7 +15,7 @@ public:
     bitmapfile(char *filename);
     ~bitmapfile();
 
-    void DrawImage(BoGraphics& graphics);
+    void DrawImage(const BoGraphics& graphics);
 };
 
 #endif
