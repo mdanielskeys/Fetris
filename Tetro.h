@@ -22,7 +22,7 @@ protected:
 	void SetMins();
 	char msg[256];
 	void SetMaxs();
-
+	int DoesBrickCollide(const point& brick, int row, int column, unsigned char* playGrid);
 	PlaySurf* surface;
 
 public:
@@ -31,7 +31,7 @@ public:
 	void SetRotation(int rot);
 	int GetMaxRow();
 	int GetMaxCol();
-	void Rotate();
+	void Rotate(int row, int column, unsigned char* playGrid);
 	char * PositionMsg();
 	int GetMinRow();
 	int IsDrawingOnScreen(int row, int LAST_ROW);

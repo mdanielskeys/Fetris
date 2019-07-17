@@ -111,15 +111,15 @@ void PlaySurf::MoveLeft()
 }
 
 void PlaySurf::RotateCC()
-{
-	currentTetro->Rotate();
+{	
+	currentTetro->Rotate(currentRow, currentCol, savedGrid);
 
 	DrawTetro();
 }
 
 void PlaySurf::RotateCW()
 {
-	currentTetro->Rotate();
+	currentTetro->Rotate(currentRow, currentCol, savedGrid);
 
 	DrawTetro();
 }

@@ -152,17 +152,28 @@ int Tetro::WillTetroCollide(int row, int column, unsigned char* playGrid)
 
 	for (int i=0;i < 4; i++)
 	{
-		int dy = row + (tpoint[i].y - maxRow);
-		if (dy < 0)
-		{
-			dy = 0;
-		}
-		int dx = column + (tpoint[i].x + abs(minX));
-		if (playGrid[dy * COLUMNS + dx] != GRID_COLOR)
+		if (DoesBrickCollide(tpoint[i], row, column, playGrid))
 		{
 			rc = 1;
 			break;
 		}
+	}
+
+	return rc;
+}
+
+int Tetro::DoesBrickCollide(const point& brick, int row, int column, unsigned char* playGrid)
+{
+	int rc = 0;
+	int dy = row + (brick.y - maxRow);
+	if (dy < 0)
+	{
+		dy = 0;
+	}
+	int dx = column + (brick.x + abs(minX));
+	if (playGrid[dy * COLUMNS + dx] != GRID_COLOR)
+	{
+		rc = 1;
 	}
 
 	return rc;
@@ -230,21 +241,35 @@ int Tetro::GetMaxCol()
 	return maxCol + 1;
 }
 
-void Tetro::Rotate()
+void Tetro::Rotate(int row, int column, unsigned char* playGrid)
 {
 	// Apply rotation matrix to each point
+	int rc = 0;
+	point newPos[4];
 	for(int i=0; i<4; i++)
 	{
 		// rotate point
-		int newX = tpoint[i].y;
-		int newY = -tpoint[i].x;
+		newPos[i].x = tpoint[i].y;
+		newPos[i].y = -tpoint[i].x;
 
-		tpoint[i].x = newX;
-		tpoint[i].y = newY;
+		rc = DoesBrickCollide(newPos[i], row, column, playGrid);
+		if (rc)
+		{
+			break;
+		}
 	}
 
-	SetMaxs();
-	SetMins();
+	if (!rc)
+	{
+		for (int i=0; i<4; i++)
+		{
+			tpoint[i].x = newPos[i].x;
+			tpoint[i].y = newPos[i].y;
+		}
+
+		SetMaxs();
+		SetMins();
+	}
 }
 
 void Tetro::DrawTetro()
