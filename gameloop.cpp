@@ -88,7 +88,7 @@ int GameLoop::processInput()
 
 		if (state == playing)
 		{
-			if (key == 'Q' || key == 'q')
+			if (int(key) == ESC) // escape key pressed
 			{
 				state = splash;
 				startScreen->LoadPalette();
@@ -109,28 +109,28 @@ int GameLoop::processInput()
 			{
 				playSurf->RotateCW();
 			}
-			if (key == 'b')
+		}
+		else if (state == gameover)
+		{
+			if (key == 'Q' || key == 'q' || int(key) == ESC)
 			{
-				if (NoAdvance)
-				{
-					NoAdvance = 0;
-				}
-				else 
-				{
-					NoAdvance = 1;
-				}
+				state = splash;
+				startScreen->LoadPalette();
+			}
+			if (key == 'G' || key == 'g')
+			{
+				playSurf->InitGrids();
+				state = playing;
 			}
 		}
 		else
 		{
 			if (key == 'G' || key == 'g')
 			{
-				//LoadPalette(defaultPalette);
 				playSurf->InitGrids();
-				NoAdvance = 0;
 				state = playing;
 			}
-			if (key == 'Q' || key == 'q')
+			if (key == 'Q' || key == 'q' || int(key) == ESC)
 			{
 				return -1;
 			}
@@ -147,17 +147,14 @@ void GameLoop::update()
 	{
 		if (((*my_clock - tetra)/18.2) > .3)
 		{
-			//playSurf->PlaceGridCell(0,0,4);
-			if (!NoAdvance)
+			playSurf->AdvanceRow();
+			if (playSurf->GetCurrentState() == gameover)
 			{
-				playSurf->AdvanceRow();
-				if (playSurf->GetCurrentState() == gameover)
-				{
-					state = gameover;
-				}
-				playSurf->CheckCompleteLines();
+				state = gameover;
 			}
+			playSurf->CheckCompleteLines();
 			playSurf->DrawTetro();
+
 			tetra = *my_clock;
 		}
 	}
@@ -166,7 +163,6 @@ void GameLoop::update()
 void GameLoop::render()
 {
 	graphics.ClearScreen();	
-	//border->Draw();
 
 	if (state == playing)
 	{

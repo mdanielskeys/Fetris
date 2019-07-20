@@ -3,6 +3,7 @@
 #include "pcx.h"
 #include "playsurf.h"
 
+#include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -10,10 +11,8 @@ PlaySurf::PlaySurf(const BoGraphics& graphics) : playGraphics(graphics)
 {
 	currentRow = -1;
 	currentCol = 3;
-	maxRow = 0;
 	currentTetroIndex = 0;
 	score = 0;
-	InitGrids();
 
 	playScreen = new pcxfile("mscreen.pcx", graphics, 1);
 
@@ -25,7 +24,7 @@ PlaySurf::PlaySurf(const BoGraphics& graphics) : playGraphics(graphics)
 	tetro[5] = new Tetro(5);
 	tetro[6] = new Tetro(6);
 
-	InitTetroIndex();
+	InitGrids();
 }
 
 PlaySurf::~PlaySurf()
@@ -45,18 +44,22 @@ void PlaySurf::InitGrids()
 {
 	currentRow = -1;
 	currentCol = 3;
-	
+	score = 0;
+
 	for (int i = 0; i < GRID_SIZE; i++)
 	{
 		savedGrid[i] = GRID_COLOR;
 		playGrid[i] = GRID_COLOR;
 	}
 
+	InitTetroIndex();
+
 	state = playing;
 }
 
 void PlaySurf::InitTetroIndex()
 {
+	srand(time(0));
 	currentTetroIndex = rand()/(RAND_MAX/TETRINOS);
 	if (currentTetroIndex > TETRINOS - 1)
 	{

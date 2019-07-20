@@ -26,13 +26,12 @@ private:
 	int CanAdvanceRow();
 	int currentRow;
 	int currentCol;
-	int maxRow;
 	gamestate state;
 	void InitTetroIndex();
 	void NextTetroIndex();
 	void DrawNextTetro();
 	int  score;
-	
+
 public:
 	PlaySurf(const BoGraphics& graphics);
 	~PlaySurf();

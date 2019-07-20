@@ -23,7 +23,6 @@ private:
 	BoGraphics graphics;
 	PlaySurf*  playSurf;	
 	gamestate state; 
-	int NoAdvance;
 	RGB_color defaultPalette[256];
 
 	void SavePalette();
