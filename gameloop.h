@@ -22,7 +22,7 @@ private:
 	DrawObject* border;
 	BoGraphics graphics;
 	PlaySurf*  playSurf;	
-	int gameState; // 0 - splash 1 - playing
+	gamestate state; 
 	int NoAdvance;
 	RGB_color defaultPalette[256];
 
@@ -31,6 +31,7 @@ private:
 	
 public:
 	GameLoop();
+	~GameLoop();
 	int processInput();
 	void update();
 	void render();

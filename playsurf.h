@@ -7,6 +7,8 @@ class BoGraphics;
 class Tetro;
 class pcxfile;
 
+
+
 class PlaySurf
 {
 private:
@@ -24,9 +26,11 @@ private:
 	int currentRow;
 	int currentCol;
 	int maxRow;
+	gamestate state;
 
 public:
 	PlaySurf(const BoGraphics& graphics);
+	~PlaySurf();
 
 	void PlaceGridCell(int row, int col, unsigned char color);
 	void AdvanceRow();
@@ -39,6 +43,8 @@ public:
 	void DrawTetro();
 	void DrawSavedGrid();
 	void InitGrids();
+	void CheckCompleteLines();
+	gamestate GetCurrentState() { return state; }
 };
 
 #endif

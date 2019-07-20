@@ -4,13 +4,30 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-Tetro::Tetro(PlaySurf *playSurf, int tetrinoType)
+Tetro::Tetro()
 {
-	rotation = 0;
-	minX = 0;
-	minY = 0;
-	surface = playSurf;
+	Init(0);
+}
 
+Tetro::Tetro(int tetrinoType)
+{
+	Init(tetrinoType);
+}
+
+Tetro::Tetro(Tetro &p2)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		localp[i].x = p2[i].x;
+		localp[i].y = p2[i].y;
+	}
+	this->_color = p2.color();
+	
+	TranslateNormal();
+}
+
+void Tetro::Init(int tetrinoType)
+{
 	switch (tetrinoType)
 	{
 	case 0:
@@ -19,13 +36,11 @@ Tetro::Tetro(PlaySurf *playSurf, int tetrinoType)
 				*	
 				* * * 
 		 */
-		tpoint[0].x = 0; tpoint[0].y = 0;
-		tpoint[1].x = 0; tpoint[1].y = 1;
-		tpoint[2].x = 1; tpoint[2].y = 0;
-		tpoint[3].x = 2; tpoint[3].y = 0;
-		color =  2;
-		maxRow = 1;
-		maxCol = 2;
+		localp[0].x = 0; localp[0].y = 0;
+		localp[1].x = 0; localp[1].y = 1;
+		localp[2].x = 1; localp[2].y = 0;
+		localp[3].x = 2; localp[3].y = 0;
+		_color =  2;
 		break;
 	case 1:
 		/*
@@ -33,26 +48,22 @@ Tetro::Tetro(PlaySurf *playSurf, int tetrinoType)
 				* * *
 				*     
 		 */
-		tpoint[0].x = 0; tpoint[0].y = 0;
-		tpoint[1].x = 0; tpoint[1].y = -1;
-		tpoint[2].x = 1; tpoint[2].y = 0;
-		tpoint[3].x = 2; tpoint[3].y = 0;
-		color =  3;
-		maxRow = 1;
-		maxCol = 2;
+		localp[0].x = 0; localp[0].y = 0;
+		localp[1].x = 0; localp[1].y = -1;
+		localp[2].x = 1; localp[2].y = 0;
+		localp[3].x = 2; localp[3].y = 0;
+		_color =  3;
 		break;
 	case 2:
 		/*
 			Tetrino Shape
 				* * * *				     
 		 */
-		tpoint[0].x = -1; tpoint[0].y = 0;
-		tpoint[1].x = 0; tpoint[1].y = 0;
-		tpoint[2].x = 1; tpoint[2].y = 0;
-		tpoint[3].x = 2; tpoint[3].y = 0;
-		color =  4;
-		maxRow = 0;
-		maxCol = 3;
+		localp[0].x = -1; localp[0].y = 0;
+		localp[1].x = 0; localp[1].y = 0;
+		localp[2].x = 1; localp[2].y = 0;
+		localp[3].x = 2; localp[3].y = 0;
+		_color =  4;
 		break;
 	case 3:
 		/*
@@ -60,13 +71,11 @@ Tetro::Tetro(PlaySurf *playSurf, int tetrinoType)
 				  * 
 				* *	*			     
 		 */
-		tpoint[0].x = -1; tpoint[0].y = 0;
-		tpoint[1].x = 0; tpoint[1].y = 0;
-		tpoint[2].x = 0; tpoint[2].y = 1;
-		tpoint[3].x = 1; tpoint[3].y = 0;
-		color =  5;
-		maxRow = 1;
-		maxCol = 2;
+		localp[0].x = -1; localp[0].y = 0;
+		localp[1].x = 0; localp[1].y = 0;
+		localp[2].x = 0; localp[2].y = 1;
+		localp[3].x = 1; localp[3].y = 0;
+		_color =  5;
 		break;
 	case 4:
 		/*
@@ -74,13 +83,11 @@ Tetro::Tetro(PlaySurf *playSurf, int tetrinoType)
 				* *
 				* *				     
 		 */
-		tpoint[0].x = 0; tpoint[0].y = 0;
-		tpoint[1].x = 0; tpoint[1].y = 1;
-		tpoint[2].x = 1; tpoint[2].y = 0;
-		tpoint[3].x = 1; tpoint[3].y = 1;
-		color =  6;
-		maxRow = 1;
-		maxCol = 1;
+		localp[0].x = 0; localp[0].y = 0;
+		localp[1].x = 0; localp[1].y = 1;
+		localp[2].x = 1; localp[2].y = 0;
+		localp[3].x = 1; localp[3].y = 1;
+		_color =  6;
 		break;
 	case 5:
 		/*
@@ -88,13 +95,11 @@ Tetro::Tetro(PlaySurf *playSurf, int tetrinoType)
 				  *	*
 				* *				     
 		 */
-		tpoint[0].x = -1; tpoint[0].y = 0;
-		tpoint[1].x = 0; tpoint[1].y = 0;
-		tpoint[2].x = 0; tpoint[2].y = 1;
-		tpoint[3].x = 1; tpoint[3].y = 1;
-		color =  7;
-		maxRow = 1;
-		maxCol = 1;
+		localp[0].x = -1; localp[0].y = 0;
+		localp[1].x = 0; localp[1].y = 0;
+		localp[2].x = 0; localp[2].y = 1;
+		localp[3].x = 1; localp[3].y = 1;
+		_color =  7;
 		break;
 	case 6:
 		/*
@@ -102,182 +107,78 @@ Tetro::Tetro(PlaySurf *playSurf, int tetrinoType)
 				* *	
 				  * *				     
 		 */
-		tpoint[0].x = -1; tpoint[0].y = 1;
-		tpoint[1].x = 0; tpoint[1].y = 1;
-		tpoint[2].x = 0; tpoint[2].y = 0;
-		tpoint[3].x = 1; tpoint[3].y = 0;
-		color =  8;
-		maxRow = 1;
-		maxCol = 1;
+		localp[0].x = -1; localp[0].y = 1;
+		localp[1].x = 0; localp[1].y = 1;
+		localp[2].x = 0; localp[2].y = 0;
+		localp[3].x = 1; localp[3].y = 0;
+		_color =  8;
 		break;
 	
 	default:
 		break;
 	}
-	SetMins();
-	SetMaxs();
+	TranslateNormal();
 }
 
-char * Tetro::PositionMsg()
+void Tetro::TranslateNormal()
 {
-	sprintf(msg, "coords: %d,%d %d,%d %d,%d %d,%d", 
-					tpoint[0].x, tpoint[0].y,
-					tpoint[1].x, tpoint[1].y,
-					tpoint[2].x, tpoint[2].y,
-					tpoint[3].x, tpoint[3].y
-	);
+	point transmatrix = {0, 0};
 
-	return msg;
-}
-
-int Tetro::IsDrawingOnScreen(int row, int LAST_ROW)
-{
-	int rc = 1;
-
-	for (int i=0;i < 4; i++)
+	// calculate the minimums on local points
+	for (int i = 0; i < 4; i++)
 	{
-		if (row + (tpoint[i].y - maxRow) >= LAST_ROW)
+		if (localp[i].x < transmatrix.x)
 		{
-			rc = 0;
-			break;
+			transmatrix.x = localp[i].x;
+		}
+		if (localp[i].y < transmatrix.y)
+		{
+			transmatrix.y = localp[i].y;
 		}
 	}
 
-	return rc;
-}
-
-int Tetro::WillTetroCollide(int row, int column, unsigned char* playGrid)
-{
-	int rc = 0;
-
-	for (int i=0;i < 4; i++)
+	// only move if the local cordinates are fall outside of normal
+	if (transmatrix.x >= 0 && transmatrix.y >= 0)
 	{
-		if (DoesBrickCollide(tpoint[i], row, column, playGrid))
-		{
-			rc = 1;
-			break;
-		}
+		// if local are normal already then set movement to 0
+		transmatrix.x = 0;
+		transmatrix.y = 0;
 	}
 
-	return rc;
-}
-
-int Tetro::DoesBrickCollide(const point& brick, int row, int column, unsigned char* playGrid)
-{
-	int rc = 0;
-	int dy = row + (brick.y - maxRow);
-	if (dy < 0)
+	// move the coordinates so that they are normal to zero
+	for (int i= 0; i<4; i++)
 	{
-		dy = 0;
-	}
-	int dx = column + (brick.x + abs(minX));
-	if (playGrid[dy * COLUMNS + dx] != GRID_COLOR)
-	{
-		rc = 1;
-	}
-
-	return rc;
-}
-
-void Tetro::SetMaxs()
-{
-	maxCol = 0;
-	maxRow = 0;
-	// translate points back to 0
-	for(int i=0; i<4; i++)
-	{
-		if (maxRow < tpoint[i].y)
-		{
-			maxRow = tpoint[i].y;
-		}
-		if (maxCol < tpoint[i].x)
-		{
-			maxCol = tpoint[i].x;
-		}
+		// transmatrix should be 0 or negative therefore
+		// subtracting the negative is the same as adding
+		// the positive
+		transp[i].x = localp[i].x - transmatrix.x;
+		transp[i].y = localp[i].y - transmatrix.y;
 	}
 }
 
-void Tetro::SetMins()
+Tetro& Tetro::operator=(Tetro& lhs)
 {
-	minX = 0;
-	minY = 0;
-
-	for(int i=0;i<4;i++)
+	for (int i= 0; i< 4; i++)
 	{
-		if (tpoint[i].x < minX)
-		{
-			minX = tpoint[i].x;
-		}	
-
-		if (tpoint[i].y < minY)
-		{
-			minY = tpoint[i].y;
-		}
+		lhs[i].x = (*this)[i].x;
+		lhs[i].y = (*this)[i].y;
 	}
+	lhs._color = this->_color;
+
+	return lhs;
 }
 
-int Tetro::GetRotation()
-{
-	return rotation;
-}
-
-void Tetro::SetRotation(int rot)
-{
-	rotation = rot;
-}
-
-int Tetro::GetMinRow()
-{
-	return minY;
-}
-
-int Tetro::GetMaxRow()
-{
-	return maxRow;
-}
-
-int Tetro::GetMaxCol()
-{
-	return maxCol + 1;
-}
-
-void Tetro::Rotate(int row, int column, unsigned char* playGrid)
+void Tetro::Rotate()
 {
 	// Apply rotation matrix to each point
 	int rc = 0;
-	point newPos[4];
 	for(int i=0; i<4; i++)
 	{
 		// rotate point
-		newPos[i].x = tpoint[i].y;
-		newPos[i].y = -tpoint[i].x;
-
-		rc = DoesBrickCollide(newPos[i], row, column, playGrid);
-		if (rc)
-		{
-			break;
-		}
+		int temp = localp[i].x;
+		localp[i].x = localp[i].y;
+		localp[i].y = -temp;
 	}
-
-	if (!rc)
-	{
-		for (int i=0; i<4; i++)
-		{
-			tpoint[i].x = newPos[i].x;
-			tpoint[i].y = newPos[i].y;
-		}
-
-		SetMaxs();
-		SetMins();
-	}
+	TranslateNormal();
 }
 
-void Tetro::DrawTetro()
-{
-	for (int i = 0; i < 4; i++)
-	{
-		int tx = tpoint[i].x + abs(minX);
-		int ty = tpoint[i].y - maxRow;
-		surface->PlaceGridCell(ty, tx, color);
-	}
-}

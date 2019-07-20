@@ -1,5 +1,5 @@
 system  dos4g
 option  map
-debug   watcom
+debug   all
 name    fetris
 file    fetris.obj,bitmap.obj,bograph.obj,border.obj,drawobj.obj,gameloop.obj,pcx.obj,playsurf.obj,tetro.obj 

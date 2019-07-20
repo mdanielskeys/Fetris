@@ -12,8 +12,21 @@
 
 GameLoop::GameLoop()
 {
-	gameState = SPLASH;
+	state = splash;
 	my_clock = (word*)0x046C;	// point to the 18.2hz system close	
+}
+
+GameLoop::~GameLoop()
+{
+	if (playSurf != NULL)
+	{
+		delete playSurf;
+	}
+
+	if (startScreen != NULL)
+	{
+		delete startScreen;
+	}
 }
 
 bool GameLoop::init()
@@ -73,11 +86,11 @@ int GameLoop::processInput()
 
 
 
-		if (gameState == PLAYING)
+		if (state == playing)
 		{
 			if (key == 'Q' || key == 'q')
 			{
-				gameState = SPLASH;
+				state = splash;
 				startScreen->LoadPalette();
 			}
 			if (key == 'd')
@@ -115,7 +128,7 @@ int GameLoop::processInput()
 				//LoadPalette(defaultPalette);
 				playSurf->InitGrids();
 				NoAdvance = 0;
-				gameState = PLAYING;
+				state = playing;
 			}
 			if (key == 'Q' || key == 'q')
 			{
@@ -130,14 +143,19 @@ int GameLoop::processInput()
 
 void GameLoop::update()
 {
-	if (gameState == PLAYING)
+	if (state == playing)
 	{
-		if (((*my_clock - tetra)/18.2) > .4)
+		if (((*my_clock - tetra)/18.2) > .2)
 		{
 			//playSurf->PlaceGridCell(0,0,4);
 			if (!NoAdvance)
 			{
 				playSurf->AdvanceRow();
+				if (playSurf->GetCurrentState() != playing)
+				{
+					state = gameover;
+				}
+				playSurf->CheckCompleteLines();
 			}
 			playSurf->DrawTetro();
 			tetra = *my_clock;
@@ -150,7 +168,7 @@ void GameLoop::render()
 	graphics.ClearScreen();	
 	//border->Draw();
 
-	if (gameState == PLAYING)
+	if (state == playing)
 	{
 		if (playSurf != NULL)
 		{
@@ -158,17 +176,17 @@ void GameLoop::render()
 			playSurf->DrawGrid();
 		}
 	}
+	else if (state == gameover)
+	{
+		char msg[255];
+		sprintf(msg, "Game Over");
+		playSurf->DrawFrame();
+		playSurf->DrawGrid();
+		graphics.Gputs(100, 100, msg, 4, 0);
+	}
 	else
 	{
 		startScreen->DrawImage();
-		/* 
-		char * msg1 = "Press 'G' to start the game.";
-		char * msg2 = "Press 'Q' to quit.";
-		char * msg = "Fetris - A Poor Tetris Clone";
-		graphics.Gputs(160 - (8*strlen(msg))/2, 50, msg, 2, 0);
-		graphics.Gputs(160 - (8*strlen(msg1))/2, 100, msg1, 3, 0);
-		graphics.Gputs(160 - (8*strlen(msg2))/2, 110, msg2, 3, 0);
-		*/
 	}
 	
 

@@ -92,5 +92,12 @@ typedef struct tagBITMAP              /* the structure for a bitmap. */
   byte *data;
 } BITMAP;
 
+enum gamestate 
+{
+	playing,
+	hold,
+	gameover,
+    splash
+};
 
 #endif
