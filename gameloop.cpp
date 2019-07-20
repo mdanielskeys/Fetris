@@ -145,13 +145,13 @@ void GameLoop::update()
 {
 	if (state == playing)
 	{
-		if (((*my_clock - tetra)/18.2) > .2)
+		if (((*my_clock - tetra)/18.2) > .3)
 		{
 			//playSurf->PlaceGridCell(0,0,4);
 			if (!NoAdvance)
 			{
 				playSurf->AdvanceRow();
-				if (playSurf->GetCurrentState() != playing)
+				if (playSurf->GetCurrentState() == gameover)
 				{
 					state = gameover;
 				}

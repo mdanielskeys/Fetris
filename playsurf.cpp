@@ -12,6 +12,7 @@ PlaySurf::PlaySurf(const BoGraphics& graphics) : playGraphics(graphics)
 	currentCol = 3;
 	maxRow = 0;
 	currentTetroIndex = 0;
+	score = 0;
 	InitGrids();
 
 	playScreen = new pcxfile("mscreen.pcx", graphics, 1);
@@ -24,7 +25,7 @@ PlaySurf::PlaySurf(const BoGraphics& graphics) : playGraphics(graphics)
 	tetro[5] = new Tetro(5);
 	tetro[6] = new Tetro(6);
 
-	currentTetro = tetro[currentTetroIndex];
+	InitTetroIndex();
 }
 
 PlaySurf::~PlaySurf()
@@ -44,7 +45,6 @@ void PlaySurf::InitGrids()
 {
 	currentRow = -1;
 	currentCol = 3;
-	currentTetroIndex = 0;
 	
 	for (int i = 0; i < GRID_SIZE; i++)
 	{
@@ -55,10 +55,71 @@ void PlaySurf::InitGrids()
 	state = playing;
 }
 
+void PlaySurf::InitTetroIndex()
+{
+	currentTetroIndex = rand()/(RAND_MAX/TETRINOS);
+	if (currentTetroIndex > TETRINOS - 1)
+	{
+		currentTetroIndex = 0;
+	}
+	currentTetro = tetro[currentTetroIndex];
+
+	nextTetroIndex = rand()/(RAND_MAX/TETRINOS);
+	if (nextTetroIndex > TETRINOS - 1)
+	{
+		nextTetroIndex = 0;
+	}
+
+	if (nextTetro != NULL)
+	{
+		delete nextTetro;
+	}
+	nextTetro = new Tetro(nextTetroIndex);
+}
+
+void PlaySurf::NextTetroIndex()
+{
+	score += 10;
+
+	currentTetroIndex = nextTetroIndex;
+	currentTetro = tetro[currentTetroIndex];
+	currentTetro->Init();
+
+	nextTetroIndex = rand()/(RAND_MAX/TETRINOS);
+	if (nextTetroIndex > TETRINOS - 1)
+	{
+		nextTetroIndex = 0;
+	}
+
+	if (nextTetro != NULL)
+	{
+		delete nextTetro;
+	}
+	nextTetro = new Tetro(nextTetroIndex);
+}
+
 void PlaySurf::DrawFrame()
 {
 	playScreen->DrawImage();
-	// playGraphics.DrawRect(FRAME_LEFT_X, FRAME_TOP_Y, FRAME_RIGHT_X, FRAME_BOTTOM_Y, FRAME_COLOR);
+
+	DrawNextTetro();
+
+	char msg[10];
+	sprintf(msg, "%05d", score);
+	playGraphics.Gputs(190, 105, msg, GRID_COLOR, 0);
+}
+
+void PlaySurf::DrawNextTetro()
+{
+	for (int i = 0; i < 4; i++)
+	{
+		int lx = ((*nextTetro)[i].x * GRID_DIMENSION) + 215;
+		int ty = ((*nextTetro)[i].y * GRID_DIMENSION) + 40;
+		int rx = lx + CELL_FILL_SIZE;
+		int by = ty + CELL_FILL_SIZE;		
+
+		playGraphics.DrawSolidRect(lx, ty, rx, by, nextTetro->color());
+	}
 }
 
 int PlaySurf::CanAdvanceRow()
@@ -127,12 +188,8 @@ void PlaySurf::AdvanceRow()
 
 			currentRow = 0;
 			currentCol = 3;
-			currentTetroIndex = rand()/(RAND_MAX/TETRINOS);
-			if (currentTetroIndex > TETRINOS - 1)
-			{
-				currentTetroIndex = 0;
-			}
-			currentTetro = tetro[currentTetroIndex];
+
+			NextTetroIndex();
 		}
 	}
 	else if (currentRow <= 0)
@@ -146,12 +203,8 @@ void PlaySurf::AdvanceRow()
 
 		currentRow = 0;
 		currentCol = 3;
-		currentTetroIndex = rand()/(RAND_MAX/TETRINOS);
-		if (currentTetroIndex > TETRINOS - 1)
-		{
-			currentTetroIndex = 0;
-		}
-		currentTetro = tetro[currentTetroIndex];
+
+		NextTetroIndex();
 	}
 
 	DrawSavedGrid();
@@ -405,8 +458,6 @@ void PlaySurf::DrawGrid()
 			DrawGridCell(row, col, playGrid[(row*COLUMNS)+col]);
 		}
 	}
-	//sprintf(msg,"%s cRow %d cCol %d", currentTetro->PositionMsg(), currentRow, currentCol);
-	//playGraphics.Gputs(1, 1, msg, 15, 0);
 }
 
 void PlaySurf::CheckCompleteLines()
@@ -425,8 +476,10 @@ void PlaySurf::CheckCompleteLines()
 				break;
 			}
 		}
+
 		if (rowfilled)
 		{
+			score += 100;
 			// Remove the row by shifting everyting down
 			int filledRow = row;
 			int aboveRow = row - 1;

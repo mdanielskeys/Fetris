@@ -16,14 +16,14 @@ protected:
 	point localp[4];
 	point transp[4];
 	unsigned char _color;
-
+	int tetType;
 	void TranslateNormal();
 	
 public:	
 	Tetro();
 	Tetro(int tetrinoType);
 	Tetro(Tetro &p2);
-	void Init(int tetrinoType);
+	void Init();
 	void Rotate();
 	point& operator[](int idx) { return transp[idx]; }
 	Tetro& operator=(Tetro& lhs);

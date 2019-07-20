@@ -6,12 +6,14 @@
 
 Tetro::Tetro()
 {
-	Init(0);
+	tetType = 0;
+	Init();
 }
 
 Tetro::Tetro(int tetrinoType)
 {
-	Init(tetrinoType);
+	tetType = tetrinoType;
+	Init();
 }
 
 Tetro::Tetro(Tetro &p2)
@@ -22,13 +24,14 @@ Tetro::Tetro(Tetro &p2)
 		localp[i].y = p2[i].y;
 	}
 	this->_color = p2.color();
-	
+	this->tetType = p2.tetType;
+
 	TranslateNormal();
 }
 
-void Tetro::Init(int tetrinoType)
+void Tetro::Init()
 {
-	switch (tetrinoType)
+	switch (tetType)
 	{
 	case 0:
 		/*
