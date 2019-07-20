@@ -30,6 +30,8 @@ private:
 	void InitTetroIndex();
 	void NextTetroIndex();
 	void DrawNextTetro();
+	void MoveColumnSide(int newcol);
+	int IsOutOfBounds(Tetro& localt);
 	int  score;
 
 public:

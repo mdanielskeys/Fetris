@@ -150,30 +150,7 @@ void PlaySurf::AdvanceRow()
 		}
 
 		// check if the local translation is still within bounds
-		int isOutOfBounds = 0;
-		for (int i = 0; i < 4; i++)
-		{
-			if (localt[i].y > (ROWS - 1)) // out of rows?
-			{
-				isOutOfBounds = 1;
-				break;
-			}
-			else if (localt[i].x < 0 || localt[i].x > (COLUMNS - 1)) // extend beynd the screen
-			{
-				isOutOfBounds = 1;
-				break;
-			}
-			else 
-			{
-				// check if any of the new squares will touch a square already filled in
-				unsigned char gridColor = savedGrid[(localt[i].y * COLUMNS) + localt[i].x];
-				if (gridColor != GRID_COLOR)
-				{
-					isOutOfBounds = 1;
-					break;
-				}
-			}
-		}
+		int isOutOfBounds = IsOutOfBounds(localt);
 
 		if (!isOutOfBounds)
 		{
@@ -213,6 +190,28 @@ void PlaySurf::AdvanceRow()
 	DrawSavedGrid();
 }
 
+void PlaySurf::MoveColumnSide(int newcol)
+{
+	// copy the current tetro locally
+	Tetro localt = *currentTetro;
+	
+	// translate the copy of the tetro to grid coordinates
+	for (int i = 0; i < 4; i++)
+	{
+		localt[i].x += newcol;
+		localt[i].y += currentRow;
+	}
+
+	// check if the local translation is still within bounds
+	int isOutOfBounds = IsOutOfBounds(localt);
+
+	if (!isOutOfBounds)
+	{
+		currentCol = newcol;
+		DrawTetro();
+	}
+}
+
 void PlaySurf::MoveRight()
 {
 	if (state != playing) return;
@@ -220,47 +219,7 @@ void PlaySurf::MoveRight()
 	int newcol = currentCol + 1;
 	if (newcol < COLUMNS)
 	{
-		// copy the current tetro locally
-		Tetro localt = *currentTetro;
-		
-		// translate the copy of the tetro to grid coordinates
-		for (int i = 0; i < 4; i++)
-		{
-			localt[i].x += newcol;
-			localt[i].y += currentRow;
-		}
-
-		// check if the local translation is still within bounds
-		int isOutOfBounds = 0;
-		for (int i = 0; i < 4; i++)
-		{
-			if (localt[i].y > (ROWS - 1)) // out of rows?
-			{
-				isOutOfBounds = 1;
-				break;
-			}
-			else if (localt[i].x < 0 || localt[i].x > (COLUMNS - 1)) // extend beynd the screen
-			{
-				isOutOfBounds = 1;
-				break;
-			}
-			else 
-			{
-				// check if any of the new squares will touch a square already filled in
-				unsigned char gridColor = savedGrid[(localt[i].y * COLUMNS) + localt[i].x];
-				if (gridColor != GRID_COLOR)
-				{
-					isOutOfBounds = 1;
-					break;
-				}
-			}
-		}
-
-		if (!isOutOfBounds)
-		{
-			currentCol = newcol;
-			DrawTetro();
-		}
+		MoveColumnSide(newcol);
 	}
 }
 
@@ -271,47 +230,7 @@ void PlaySurf::MoveLeft()
 	int newcol = currentCol - 1;
 	if (newcol >= 0)
 	{
-		// copy the current tetro locally
-		Tetro localt = *currentTetro;
-		
-		// translate the copy of the tetro to grid coordinates
-		for (int i = 0; i < 4; i++)
-		{
-			localt[i].x += newcol;
-			localt[i].y += currentRow;
-		}
-
-		// check if the local translation is still within bounds
-		int isOutOfBounds = 0;
-		for (int i = 0; i < 4; i++)
-		{
-			if (localt[i].y > (ROWS - 1)) // out of rows?
-			{
-				isOutOfBounds = 1;
-				break;
-			}
-			else if (localt[i].x < 0 || localt[i].x > (COLUMNS - 1)) // extend beynd the screen
-			{
-				isOutOfBounds = 1;
-				break;
-			}
-			else 
-			{
-				// check if any of the new squares will touch a square already filled in
-				unsigned char gridColor = savedGrid[(localt[i].y * COLUMNS) + localt[i].x];
-				if (gridColor != GRID_COLOR)
-				{
-					isOutOfBounds = 1;
-					break;
-				}
-			}
-		}
-
-		if (!isOutOfBounds)
-		{
-			currentCol = newcol;
-			DrawTetro();
-		}
+		MoveColumnSide(newcol);
 	}
 }
 
@@ -338,6 +257,19 @@ void PlaySurf::RotateCW()
 	}
 
 	// check if the local translation is still within bounds
+	int isOutOfBounds = IsOutOfBounds(localt);
+
+	// only rotate and draw if it is not out of bounds
+	if (!isOutOfBounds)
+	{
+		currentTetro->Rotate();
+		DrawTetro();
+	}
+}
+
+int PlaySurf::IsOutOfBounds(Tetro& localt)
+{
+	// check if the local translation is still within bounds
 	int isOutOfBounds = 0;
 	for (int i = 0; i < 4; i++)
 	{
@@ -363,12 +295,7 @@ void PlaySurf::RotateCW()
 		}
 	}
 
-	// only rotate and draw if it is not out of bounds
-	if (!isOutOfBounds)
-	{
-		currentTetro->Rotate();
-		DrawTetro();
-	}
+	return isOutOfBounds;
 }
 
 void PlaySurf::DrawTetro()
