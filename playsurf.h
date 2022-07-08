@@ -4,8 +4,9 @@
 #include "defs.h"
 
 class BoGraphics;
-class Tetro;
 class pcxfile;
+class Tetro;
+
 
 class PlaySurf
 {
@@ -14,8 +15,10 @@ private:
 	char msg[255];
 	Tetro *tetro[TETRINOS];
 	Tetro *currentTetro;
+	Tetro *nextTetro;
 	pcxfile *playScreen;
 	int currentTetroIndex;
+	int nextTetroIndex;
 	unsigned char playGrid[GRID_SIZE];
 	unsigned char savedGrid[GRID_SIZE];
 	void DrawGridCell(int row, int col, unsigned char color);
@@ -23,10 +26,17 @@ private:
 	int CanAdvanceRow();
 	int currentRow;
 	int currentCol;
-	int maxRow;
+	gamestate state;
+	void InitTetroIndex();
+	void NextTetroIndex();
+	void DrawNextTetro();
+	void MoveColumnSide(int newcol);
+	int IsOutOfBounds(Tetro& localt);
+	int  score;
 
 public:
 	PlaySurf(const BoGraphics& graphics);
+	~PlaySurf();
 
 	void PlaceGridCell(int row, int col, unsigned char color);
 	void AdvanceRow();
@@ -39,6 +49,8 @@ public:
 	void DrawTetro();
 	void DrawSavedGrid();
 	void InitGrids();
+	void CheckCompleteLines();
+	gamestate GetCurrentState() { return state; }
 };
 
 #endif

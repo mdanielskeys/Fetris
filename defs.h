@@ -45,6 +45,7 @@
 #define CHAR_HEIGHT   		8
 
 #define GRID_COLOR          1
+#define ESC                 27
 
 #define SGN(x) ((x<0)?-1:((x>0)?1:0)) /* macro to return the sign of a
                                          number */
@@ -92,5 +93,12 @@ typedef struct tagBITMAP              /* the structure for a bitmap. */
   byte *data;
 } BITMAP;
 
+enum gamestate 
+{
+	playing,
+	hold,
+	gameover,
+    splash
+};
 
 #endif

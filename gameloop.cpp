@@ -12,13 +12,26 @@
 
 GameLoop::GameLoop()
 {
-	gameState = SPLASH;
-	my_clock = (word*)0x046C;	// point to the 18.2hz system close	
+	state = splash;
+	my_clock = (word *)0x046C; // point to the 18.2hz system close
+}
+
+GameLoop::~GameLoop()
+{
+	if (playSurf != NULL)
+	{
+		delete playSurf;
+	}
+
+	if (startScreen != NULL)
+	{
+		delete startScreen;
+	}
 }
 
 bool GameLoop::init()
 {
-	srand (time(NULL));
+	srand(time(NULL));
 
 	if (!graphics.SetGraphicsMode())
 	{
@@ -26,14 +39,14 @@ bool GameLoop::init()
 	}
 
 	// Initilize my graphics objects
-	//border = new Border(graphics);
-	//if (border == NULL)
+	// border = new Border(graphics);
+	// if (border == NULL)
 	//{
 	//	return false;
 	//}
 
 	playSurf = new PlaySurf(graphics);
-	//startScreen = new bitmapfile("title.bmp");
+	// startScreen = new bitmapfile("title.bmp");
 	SavePalette();
 	startScreen = new pcxfile("title.pcx", graphics, 1);
 
@@ -44,7 +57,7 @@ bool GameLoop::init()
 
 void GameLoop::SavePalette()
 {
-	for (int i=0;i<256;i++)
+	for (int i = 0; i < 256; i++)
 	{
 		graphics.ReadPaletteRegister(i, &defaultPalette[i]);
 	}
@@ -52,7 +65,7 @@ void GameLoop::SavePalette()
 
 void GameLoop::LoadPalette(RGB_color *palette)
 {
-	for (int i=0; i<256; i++)
+	for (int i = 0; i < 256; i++)
 	{
 		graphics.SetPaletteRegister(i, palette + i);
 	}
@@ -71,13 +84,11 @@ int GameLoop::processInput()
 	{
 		unsigned char key = getch();
 
-
-
-		if (gameState == PLAYING)
+		if (state == playing)
 		{
-			if (key == 'Q' || key == 'q')
+			if (int(key) == ESC) // escape key pressed
 			{
-				gameState = SPLASH;
+				state = splash;
 				startScreen->LoadPalette();
 			}
 			if (key == 'd')
@@ -88,41 +99,40 @@ int GameLoop::processInput()
 			{
 				playSurf->MoveLeft();
 			}
-			if (key == 'e')
+			if (key == 's')
 			{
-				playSurf->RotateCC();		
+				playSurf->RotateCC();
 			}
 			if (key == 'w')
 			{
 				playSurf->RotateCW();
 			}
-			if (key == 'b')
+		}
+		else if (state == gameover)
+		{
+			if (key == 'Q' || key == 'q' || int(key) == ESC)
 			{
-				if (NoAdvance)
-				{
-					NoAdvance = 0;
-				}
-				else 
-				{
-					NoAdvance = 1;
-				}
+				state = splash;
+				startScreen->LoadPalette();
+			}
+			if (key == 'G' || key == 'g')
+			{
+				playSurf->InitGrids();
+				state = playing;
 			}
 		}
 		else
 		{
 			if (key == 'G' || key == 'g')
 			{
-				//LoadPalette(defaultPalette);
 				playSurf->InitGrids();
-				NoAdvance = 0;
-				gameState = PLAYING;
+				state = playing;
 			}
-			if (key == 'Q' || key == 'q')
+			if (key == 'Q' || key == 'q' || int(key) == ESC)
 			{
 				return -1;
 			}
 		}
-		
 	}
 
 	return 0;
@@ -130,16 +140,18 @@ int GameLoop::processInput()
 
 void GameLoop::update()
 {
-	if (gameState == PLAYING)
+	if (state == playing)
 	{
-		if (((*my_clock - tetra)/18.2) > .4)
+		if (((*my_clock - tetra) / 18.2) > .3)
 		{
-			//playSurf->PlaceGridCell(0,0,4);
-			if (!NoAdvance)
+			playSurf->AdvanceRow();
+			if (playSurf->GetCurrentState() == gameover)
 			{
-				playSurf->AdvanceRow();
+				state = gameover;
 			}
+			playSurf->CheckCompleteLines();
 			playSurf->DrawTetro();
+
 			tetra = *my_clock;
 		}
 	}
@@ -147,10 +159,9 @@ void GameLoop::update()
 
 void GameLoop::render()
 {
-	graphics.ClearScreen();	
-	//border->Draw();
+	graphics.ClearScreen();
 
-	if (gameState == PLAYING)
+	if (state == playing)
 	{
 		if (playSurf != NULL)
 		{
@@ -158,19 +169,18 @@ void GameLoop::render()
 			playSurf->DrawGrid();
 		}
 	}
+	else if (state == gameover)
+	{
+		char msg[255];
+		sprintf(msg, "Game Over");
+		playSurf->DrawFrame();
+		playSurf->DrawGrid();
+		graphics.Gputs(100, 100, msg, 4, 0);
+	}
 	else
 	{
 		startScreen->DrawImage();
-		/* 
-		char * msg1 = "Press 'G' to start the game.";
-		char * msg2 = "Press 'Q' to quit.";
-		char * msg = "Fetris - A Poor Tetris Clone";
-		graphics.Gputs(160 - (8*strlen(msg))/2, 50, msg, 2, 0);
-		graphics.Gputs(160 - (8*strlen(msg1))/2, 100, msg1, 3, 0);
-		graphics.Gputs(160 - (8*strlen(msg2))/2, 110, msg2, 3, 0);
-		*/
 	}
-	
 
 	graphics.FlipVideoBuffer();
 }

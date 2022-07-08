@@ -2,4 +2,4 @@ system  dos4g
 option  map
 debug   watcom
 name    fetris
-file    fetris.obj,bitmap.obj,bograph.obj,border.obj,drawobj.obj,gameloop.obj,pcx.obj,playsurf.obj,tetro.obj 
+file    ./obj/fetris.obj,./obj/bitmap.obj,./obj/bograph.obj,./obj/border.obj,./obj/drawobj.obj,./obj/gameloop.obj,./obj/pcx.obj,./obj/playsurf.obj,./obj/tetro.obj 

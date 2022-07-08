@@ -6,40 +6,29 @@ class PlaySurf;
 typedef struct _point {
 	int x;
 	int y;
-} point;
+} point, *point_ptr;
+
+typedef point points[4];
 
 class Tetro
 {
 protected:
-	int rotation;			// how the tetrino is rotate 0 - 3
-	int maxRow;
-	int maxCol;
-	int minX;
-	int minY;
-	point tpoint[4];
-	point zpoint[4];
-	unsigned char color;
-	void SetMins();
-	char msg[256];
-	void SetMaxs();
-	int DoesBrickCollide(const point& brick, int row, int column, unsigned char* playGrid);
-	PlaySurf* surface;
-
-public:
-	Tetro(PlaySurf *playSurf, int tetrinoType);
-	int GetRotation();
-	void SetRotation(int rot);
-	int GetMaxRow();
-	int GetMaxCol();
-	void Rotate(int row, int column, unsigned char* playGrid);
-	char * PositionMsg();
-	int GetMinRow();
-	int IsDrawingOnScreen(int row, int LAST_ROW);
-	int WillTetroCollide(int row, int column, unsigned char* playGrid);
-
-public:
-	virtual void DrawTetro();
-
+	point localp[4];
+	point transp[4];
+	unsigned char _color;
+	int tetType;
+	void TranslateNormal();
+	
+public:	
+	Tetro();
+	Tetro(int tetrinoType);
+	Tetro(Tetro &p2);
+	void Init();
+	void Rotate();
+	point& operator[](int idx) { return transp[idx]; }
+	Tetro& operator=(Tetro& lhs);
+	const points& get() const { return transp; }
+	unsigned char color() { return _color; }
 };
 
 #endif
