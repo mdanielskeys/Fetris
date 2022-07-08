@@ -13,7 +13,7 @@
 GameLoop::GameLoop()
 {
 	state = splash;
-	my_clock = (word*)0x046C;	// point to the 18.2hz system close	
+	my_clock = (word *)0x046C; // point to the 18.2hz system close
 }
 
 GameLoop::~GameLoop()
@@ -31,7 +31,7 @@ GameLoop::~GameLoop()
 
 bool GameLoop::init()
 {
-	srand (time(NULL));
+	srand(time(NULL));
 
 	if (!graphics.SetGraphicsMode())
 	{
@@ -39,14 +39,14 @@ bool GameLoop::init()
 	}
 
 	// Initilize my graphics objects
-	//border = new Border(graphics);
-	//if (border == NULL)
+	// border = new Border(graphics);
+	// if (border == NULL)
 	//{
 	//	return false;
 	//}
 
 	playSurf = new PlaySurf(graphics);
-	//startScreen = new bitmapfile("title.bmp");
+	// startScreen = new bitmapfile("title.bmp");
 	SavePalette();
 	startScreen = new pcxfile("title.pcx", graphics, 1);
 
@@ -57,7 +57,7 @@ bool GameLoop::init()
 
 void GameLoop::SavePalette()
 {
-	for (int i=0;i<256;i++)
+	for (int i = 0; i < 256; i++)
 	{
 		graphics.ReadPaletteRegister(i, &defaultPalette[i]);
 	}
@@ -65,7 +65,7 @@ void GameLoop::SavePalette()
 
 void GameLoop::LoadPalette(RGB_color *palette)
 {
-	for (int i=0; i<256; i++)
+	for (int i = 0; i < 256; i++)
 	{
 		graphics.SetPaletteRegister(i, palette + i);
 	}
@@ -84,8 +84,6 @@ int GameLoop::processInput()
 	{
 		unsigned char key = getch();
 
-
-
 		if (state == playing)
 		{
 			if (int(key) == ESC) // escape key pressed
@@ -101,9 +99,9 @@ int GameLoop::processInput()
 			{
 				playSurf->MoveLeft();
 			}
-			if (key == 'e')
+			if (key == 's')
 			{
-				playSurf->RotateCC();		
+				playSurf->RotateCC();
 			}
 			if (key == 'w')
 			{
@@ -135,7 +133,6 @@ int GameLoop::processInput()
 				return -1;
 			}
 		}
-		
 	}
 
 	return 0;
@@ -145,7 +142,7 @@ void GameLoop::update()
 {
 	if (state == playing)
 	{
-		if (((*my_clock - tetra)/18.2) > .3)
+		if (((*my_clock - tetra) / 18.2) > .3)
 		{
 			playSurf->AdvanceRow();
 			if (playSurf->GetCurrentState() == gameover)
@@ -162,7 +159,7 @@ void GameLoop::update()
 
 void GameLoop::render()
 {
-	graphics.ClearScreen();	
+	graphics.ClearScreen();
 
 	if (state == playing)
 	{
@@ -184,7 +181,6 @@ void GameLoop::render()
 	{
 		startScreen->DrawImage();
 	}
-	
 
 	graphics.FlipVideoBuffer();
 }
